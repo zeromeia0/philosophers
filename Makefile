@@ -6,7 +6,7 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/05 18:19:23 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/05 19:23:40 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJDIR = objs
 HELPER_DIR = ./helpers
 
 SRC = \
-	$(SRCDIR)/philo.c\
+	$(SRCDIR)/philo.c super_duper_hiper_free.c\
 	$(HELPER_DIR)/ft_atoi.c
 
 OBJS = $(SRC:../%.c=$(OBJDIR)/%.o)
