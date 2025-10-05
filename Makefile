@@ -6,45 +6,37 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/05 19:23:40 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/05 22:57:21 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 SRCDIR = .
 OBJDIR = objs
-HELPER_DIR = ./helpers
 
-SRC = \
-	$(SRCDIR)/philo.c super_duper_hiper_free.c\
-	$(HELPER_DIR)/ft_atoi.c
+SRC = $(SRCDIR)/philo.c \
+      $(SRCDIR)/basic_thread_ops.c \
+      $(SRCDIR)/auxiliar.c
 
-OBJS = $(SRC:../%.c=$(OBJDIR)/%.o)
-OBJS := $(OBJS:./%.c=$(OBJDIR)/%.o)
+OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -pthread
-
-INCLUDES = -I$(HELPER_DIR)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJDIR)/%.o: ../%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJDIR)/%.o: ./%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJDIR)
 
 fclean: clean
-	@rm -rf $(NAME) $(OBJDIR)
+	@rm -rf $(NAME)
 
 re: fclean all
 
@@ -56,6 +48,5 @@ b: re
 
 val: re
 	@valgrind --leak-check=full ./philo 200 40 200 500 400
-
 
 .PHONY: all clean fclean re a b val
