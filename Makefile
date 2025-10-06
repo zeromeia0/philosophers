@@ -6,7 +6,7 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/05 22:57:21 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/06 23:03:31 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = $(SRCDIR)/philo.c \
 OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread
+CFLAGS = -Wall -Wextra -Werror -g -pthread 
 
 all: $(NAME)
 
@@ -41,7 +41,7 @@ fclean: clean
 re: fclean all
 
 a: re
-	@./philo 200 40 200 500
+	./philo 100 40 200 500
 
 b: re
 	@./philo 200 40 200 500 400
@@ -49,4 +49,9 @@ b: re
 val: re
 	@valgrind --leak-check=full ./philo 200 40 200 500 400
 
+ll: re
+	lldb ./philo 200 40 200 500 400
+
+gdb: re
+	gdb ./philo 7 40 200 500 400
 .PHONY: all clean fclean re a b val

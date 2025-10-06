@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/05 22:50:41 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/06 23:02:58 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ long	ft_atol(const char *str)
 	i = 0;
 	res = 0;
 	sign = 1;
+	if (!str)
+		return (0);
 	while (str[i] <= 32)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
