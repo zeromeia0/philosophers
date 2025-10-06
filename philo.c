@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:25:10 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/06 23:27:42 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int args_checker(int argc, char *argv[]) //NEED TO TEST BIG ASS NUMBERS?
 
 int philo_sleeping(t_philos *philo)
 {
-	printf("PHILO IS SLEEPING\n");
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
@@ -60,12 +59,10 @@ int philo_sleeping(t_philos *philo)
 
 int philo_thinking(t_philos *philo)
 {
-	printf("PHILO IS THINKING\n");
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE 2\n"), -1);
-	
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	print_message(philo, "Is thinking\n");
@@ -74,7 +71,6 @@ int philo_thinking(t_philos *philo)
 
 int philo_eating(t_philos *philo)
 {
-	printf("PHILO IS EATING\n");
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
@@ -117,11 +113,11 @@ int	main(int argc, char *argv[])
 	if (create_threads(number_of_philo, threads, philos()) != 0)
 		return (perror("Not working right now\n"), 1);
 	
-	if (philo_thinking(&philo[0]) != 0)
+	if (philo_thinking(&philo[5]) != 0)
 		return (-1);
-	if (philo_sleeping(&philo[0]) != 0)
+	if (philo_sleeping(&philo[5]) != 0)
 		return (-1);
-	if (philo_eating(&philo[0]) != 0)
+	if (philo_eating(&philo[5]) != 0)
 		return (-1);
 	printf("FINISHED ACIONS\n");
 	if (join_threads(number_of_philo, threads) != 0)
