@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:09:01 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/06 23:25:10 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,34 @@ int philo_eating(t_philos *philo)
 //check death
 int	main(int argc, char *argv[])
 {
-	t_philos *main_philo = philos();
+    if (args_checker(argc, argv) != 0)
+		return (1);
 	int number_of_philo = ft_atol(argv[1]);
-	// pthread_mutex_t *forks;
 	pthread_t threads[number_of_philo];
-	
-	
-    if (args_checker(argc, argv) != 0){
-		return (1);}
-	main_philo->init = malloc(sizeof(t_init));
-	if (!main_philo->init)
-			return (printf("can't alloc memory for that\n"), 0);
-		get_philo_values(philos(), argv);
+	t_init *init;
+	t_philos *philo;
+	if (!(init = malloc(sizeof(t_init))))
+		return (printf("Couldn't load init\n"), -1);
+	if (!(philo = malloc(sizeof(t_philos))))
+		return (printf("Couldn't load main struct\n"), -1);
+	// t_philos *main_philo = philos();
+	philo[0].init = init;
+	get_philo_values(philo, argv);
 		
+	for (int i = 0; i < number_of_philo; i++)
+    {
+        philo[i].id = i;
+        philo[i].init = init;
+    }
+	
 	if (create_threads(number_of_philo, threads, philos()) != 0)
 		return (perror("Not working right now\n"), 1);
-	printf("BRUH\n");
 	
-	if (philo_thinking(philos()) != 0)
+	if (philo_thinking(&philo[0]) != 0)
 		return (-1);
-	if (philo_sleeping(philos()) != 0)
+	if (philo_sleeping(&philo[0]) != 0)
 		return (-1);
-	if (philo_eating(philos()) != 0)
+	if (philo_eating(&philo[0]) != 0)
 		return (-1);
 	printf("FINISHED ACIONS\n");
 	if (join_threads(number_of_philo, threads) != 0)
@@ -123,7 +129,8 @@ int	main(int argc, char *argv[])
 	// printf("Number of philos: %s\n", argv[1]);
 
 	
-	free(main_philo->init);
+	free(init);
+	free(philo);
 	// free(main_philo->left_fork);
 	// free(main_philo->right_fork);
 	return (0);

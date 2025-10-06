@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:09:23 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/06 23:14:55 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	get_time_values(t_philos *philo, char **argv)
 		else
 			philo->init->minimum_eat_times = 0;
 		philo->init->start_time = get_current_time_ms();
+		int i = 0;
+		while (i < philo->init->number_of_philo)
+		{
+			philo[i].id = i; // why does this lines crashes the stuff?
+			i++;
+		}
 	}
-	// int i = 0;
-	// while (i < philo->init->number_of_philo)
-	// {
-	// 	philo[i].id = i;
-	// 	i++;
-	// }
 }
 
 void get_philo_values(t_philos *philo, char **argv)
@@ -85,18 +85,14 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos], t_philo
 }
 int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 {
-	printf("JOIN THREADS1\n");
 	int	i;
 
 	i = 0;
-	printf("JOIN THREADS2\n");
 	for (i = 0; i < number_of_philos; i++)
 	{
-		printf("JOIN THREADS3\n");
 		if (pthread_join(th[i], NULL) != 0)
 			return (printf("Couldn't join the threads\n"), 1);
 	}
-	printf("JOIN THREADS4\n");
 	printf("Finished joining threads\n");
 	return (0);
 }
