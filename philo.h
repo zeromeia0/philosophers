@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:22:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 22:29:41 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 08:43:30 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_init_vars
 	t_time					time_to_die;
 	t_time					time_to_eat;
 	t_time					time_to_sleep;
-	t_time					minimum_eat_times;
+	t_time					time_of_last_meal;
+	int					minimum_eat_times;
 	t_time					start_time;
 }							t_init;
 
@@ -54,15 +55,20 @@ long						ft_atol(const char *str);
 int							ft_strlen(char *str);
 void						ft_putstr_fd(int fd, char *str);
 int							is_number(char *str);
-void	get_time_values(t_philos *philo, char **argv);
+void						get_time_values(t_philos *philo, char **argv);
 int							create_threads(int number_of_philos,
 								pthread_t th[number_of_philos],
 								t_philos *philo);
 int							join_threads(int number_of_philos,
 								pthread_t th[number_of_philos]);
 void						*socrates(void *arg);
-void print_message(t_philos *philo, char *str);
-t_philos	*philos(void);
-void get_philo_values(t_philos *philo, char **argv);
+void						print_message(t_philos *philo, char *str);
+t_philos					*philos(void);
+void						get_philo_values(t_philos *philo, char **argv);
+int	philo_thinking(t_philos *philo);
+int	philo_sleeping(t_philos *philo);
+int	philo_eating(t_philos *philo);
+int check_death(t_philos *philo);
+int master_loop(t_philos *philo);
 
 #endif

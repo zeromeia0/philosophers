@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:14:55 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 08:46:50 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 #include <bits/types/struct_timeval.h>
 #include <sys/time.h>
 
-
-t_time get_current_time_ms(void)
+t_time	get_current_time_ms(void)
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL); // tz is almost always NULL
-    return (t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL); // milliseconds
-	// 1000ULL -> converts to miliss
-	// tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
-	// time_t tv_sec;   // seconds since Jan 1, 1970 (the Unix epoch)
-// suseconds_t tv_usec; // microseconds (millionths of a second)
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);                                    
+		/* tz is almost always NULL */
+	return (t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL);
+		/*  milliseconds */
+	/* 	1000ULL -> converts to miliss
+		tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
+		time_t tv_sec;   // seconds since Jan 1, 1970 (the Unix epoch)
+	suseconds_t tv_usec; // microseconds (millionths of a second) */
 }
 
 void	get_time_values(t_philos *philo, char **argv)
 {
+	int	i;
+
 	if (philo && philo->init)
 	{
 		philo->init->number_of_philo = ft_atol(argv[1]);
@@ -39,16 +43,16 @@ void	get_time_values(t_philos *philo, char **argv)
 		else
 			philo->init->minimum_eat_times = 0;
 		philo->init->start_time = get_current_time_ms();
-		int i = 0;
+		i = 0;
 		while (i < philo->init->number_of_philo)
 		{
-			philo[i].id = i; // why does this lines crashes the stuff?
+			philo[i].id = i; /* why does this lines crashes the stuff? */
 			i++;
 		}
 	}
 }
 
-void get_philo_values(t_philos *philo, char **argv)
+void	get_philo_values(t_philos *philo, char **argv)
 {
 	get_time_values(philo, argv);
 	printf("Number of philo = %d\n", (int)philo->init->number_of_philo);
@@ -56,19 +60,32 @@ void get_philo_values(t_philos *philo, char **argv)
 	printf("Time to eat = %d\n", (int)philo->init->time_to_eat);
 	printf("Time to sleep = %d\n", (int)philo->init->time_to_sleep);
 	printf("Minimum times to eat= %d\n", (int)philo->init->minimum_eat_times);
-	
 }
 
-void print_message(t_philos *philo, char *str)
+int check_death(t_philos *philo)
 {
-	t_time now;
-	t_time start = philo->init->start_time;
+	printf("CHECKING DEATH\n");
+	// if (philo->times_eaten == philo->init->minimum_eat_times)
+	// 	return (-1);
+	printf("BRUH\n");
+	if (get_current_time_ms() - philo->init->time_of_last_meal > philo->init->time_to_eat)
+		return (printf("some dude died\n"), philo->death_flag = 1, -1);
+	return (0);
+}
+
+void	print_message(t_philos *philo, char *str)
+{
+	t_time	now;
+	t_time	start;
+	start = philo->init->start_time;
 	philo = philos();
 	now = get_current_time_ms() - start;
-	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id, str);
+	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id,
+		str);
 }
 
-int	create_threads(int number_of_philos, pthread_t th[number_of_philos], t_philos *philo)
+int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
+		t_philos *philo)
 {
 	int	i;
 
@@ -83,9 +100,25 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos], t_philo
 	printf("Finished giving birth to %d philosophers\n", i);
 	return (0);
 }
+
+int master_loop(t_philos *philo)
+{
+	printf("INSIDE MASTER LOOP\n");
+	// while (philo->death_flag == 0)
+	// {
+		if (philo_thinking(&philo[5]) != 0)
+			return (-1);
+		if (philo_sleeping(&philo[5]) != 0)
+			return (-1);
+		if (philo_eating(&philo[5]) != 0)
+			return (-1);
+	// }
+	return (0);
+}
+
 int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 {
-	int	i;
+	int i;
 
 	i = 0;
 	for (i = 0; i < number_of_philos; i++)

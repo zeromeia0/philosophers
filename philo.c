@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:27:42 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 08:44:55 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,29 @@ void	*socrates(void *arg)
 	return (NULL);
 }
 
-int args_checker(int argc, char *argv[]) //NEED TO TEST BIG ASS NUMBERS?
+int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 {
-    int i = 1;
-    while (i < argc)
-    {
-        if (is_number(argv[i]) != 0)
-            return (write(2, "Arguments should be numbers only\n", 34), 1);
-        i++;
-    }
-    if (argc < 5 || argc > 6)
+	int i = 1;
+	while (i < argc)
+	{
+		if (is_number(argv[i]) != 0)
+			return (write(2, "Arguments should be numbers only\n", 34), 1);
+		i++;
+	}
+	if (argc < 5 || argc > 6)
 		return (printf("Invalid number of args\n"), 1);
-    return (0);
+	return (0);
 }
 
-int philo_sleeping(t_philos *philo)
+int	philo_sleeping(t_philos *philo)
 {
+	// if (check_death(philo) != 0)
+		// return (-1);
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE 2\n"), -1);
-    pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	if (philos()->death_flag != 0)
 		return (-1);
@@ -57,8 +59,10 @@ int philo_sleeping(t_philos *philo)
 	return (0);
 }
 
-int philo_thinking(t_philos *philo)
+int	philo_thinking(t_philos *philo)
 {
+	// if (check_death(philo) != 0)
+		// return (-1);
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
@@ -69,8 +73,10 @@ int philo_thinking(t_philos *philo)
 	return (0);
 }
 
-int philo_eating(t_philos *philo)
+int	philo_eating(t_philos *philo)
 {
+	// if (check_death(philo) != 0)
+		// return (-1);
 	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
 		return (printf("FAILURE\n"), -1);
 	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
@@ -87,15 +93,18 @@ int philo_eating(t_philos *philo)
 	return (0);
 }
 
-//check death
+// check death
 int	main(int argc, char *argv[])
 {
-    if (args_checker(argc, argv) != 0)
+	int			number_of_philo;
+	pthread_t	threads[number_of_philo];
+	t_init		*init;
+	t_philos	*philo;
+
+	(void)number_of_philo;
+	if (args_checker(argc, argv) != 0)
 		return (1);
-	int number_of_philo = ft_atol(argv[1]);
-	pthread_t threads[number_of_philo];
-	t_init *init;
-	t_philos *philo;
+	number_of_philo = ft_atol(argv[1]);
 	if (!(init = malloc(sizeof(t_init))))
 		return (printf("Couldn't load init\n"), -1);
 	if (!(philo = malloc(sizeof(t_philos))))
@@ -103,28 +112,18 @@ int	main(int argc, char *argv[])
 	// t_philos *main_philo = philos();
 	philo[0].init = init;
 	get_philo_values(philo, argv);
-		
 	for (int i = 0; i < number_of_philo; i++)
-    {
-        philo[i].id = i;
-        philo[i].init = init;
-    }
-	
+	{
+		philo[i].id = i;
+		philo[i].init = init;
+	}
 	if (create_threads(number_of_philo, threads, philos()) != 0)
 		return (perror("Not working right now\n"), 1);
-	
-	if (philo_thinking(&philo[5]) != 0)
-		return (-1);
-	if (philo_sleeping(&philo[5]) != 0)
-		return (-1);
-	if (philo_eating(&philo[5]) != 0)
-		return (-1);
+	master_loop(philo);
 	printf("FINISHED ACIONS\n");
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
 	// printf("Number of philos: %s\n", argv[1]);
-
-	
 	free(init);
 	free(philo);
 	// free(main_philo->left_fork);
