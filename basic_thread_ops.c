@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 14:20:29 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:53:22 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int check_death(t_philos *philo)
 	printf("CHECKING DEATH\n");
 	// if (philo->times_eaten == philo->init->minimum_eat_times)
 	// 	return (-1);
-	printf("BRUH\n");
 	if (get_current_time_ms() - philo->init->time_of_last_meal > philo->init->time_to_eat)
 		return (printf("some dude died\n"), philo->death_flag = 1, -1);
 	return (0);
@@ -79,8 +78,7 @@ void	print_message(t_philos *philo, char *str)
 {
 	t_time	now;
 	t_time	start;
-	start = philos()->init->start_time;
-	philo = philos();
+	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
 	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id,
 		str);
@@ -108,13 +106,15 @@ int master_loop(t_philos *philo)
 	printf("INSIDE MASTER LOOP\n");
 	// while (philo->death_flag == 0)
 	// {
+	for (int i = 0; i < 10000; i++)
+	{
 		if (philo_thinking(&philo[5]) != 0)
 			return (-1);
 		if (philo_sleeping(&philo[5]) != 0)
 			return (-1);
 		if (philo_eating(&philo[5]) != 0)
 			return (-1);
-	// }
+	}
 	return (0);
 }
 

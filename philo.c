@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 14:31:15 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:52:20 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	philo_sleeping(t_philos *philo)
 		return (printf("FAILURE 2\n"), -1);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	if (philos()->death_flag != 0)
+	if (philo->death_flag != 0)
 		return (-1);
 	print_message(philo, "Is sleeping\n");
 	return (0);
@@ -112,16 +112,16 @@ if (!(init = malloc(sizeof(t_init))))
 	if (!(threads = malloc(sizeof(pthread_t) * number_of_philo)))
 		return (printf("Couldn't allocate threads\n"), -1);
 
-	philo = philos();
-	get_philo_values(philo, argv);
-	
+	// philo = philos();
 	for (int i = 0; i < number_of_philo; i++)
 	{
 		philo[i].id = i;
 		philo[i].init = init;
 	}
+	get_philo_values(philo, argv);
 	
-	if (create_threads(number_of_philo, threads, philos()) != 0)
+	
+	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
 	master_loop(philo);
 	printf("FINISHED ACIONS\n");
