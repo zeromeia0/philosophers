@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 14:19:07 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:31:15 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,30 @@ int	philo_eating(t_philos *philo)
 int	main(int argc, char *argv[])
 {
 	int			number_of_philo;
-	pthread_t	threads[number_of_philo];
+	pthread_t	*threads;
 	t_init		*init;
 	t_philos	*philo;
 
-	(void)number_of_philo;
 	if (args_checker(argc, argv) != 0)
 		return (1);
+		
 	number_of_philo = ft_atol(argv[1]);
-	if (!(init = malloc(sizeof(t_init))))
+if (!(init = malloc(sizeof(t_init))))
 		return (printf("Couldn't load init\n"), -1);
-	if (!(philo = malloc(sizeof(t_philos))))
+	if (!(philo = malloc(sizeof(t_philos) * number_of_philo)))
 		return (printf("Couldn't load main struct\n"), -1);
-	// t_philos *main_philo = philos();
+	if (!(threads = malloc(sizeof(pthread_t) * number_of_philo)))
+		return (printf("Couldn't allocate threads\n"), -1);
+
 	philo = philos();
 	get_philo_values(philo, argv);
+	
 	for (int i = 0; i < number_of_philo; i++)
 	{
 		philo[i].id = i;
 		philo[i].init = init;
 	}
+	
 	if (create_threads(number_of_philo, threads, philos()) != 0)
 		return (perror("Not working right now\n"), 1);
 	master_loop(philo);
@@ -124,8 +128,10 @@ int	main(int argc, char *argv[])
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
 	// printf("Number of philos: %s\n", argv[1]);
-	free(init);
-	free(philo);
+	if (init)
+		free(init);
+	// if (philo)
+		// free(philo);
 	// free(main_philo->left_fork);
 	// free(main_philo->right_fork);
 	return (0);
