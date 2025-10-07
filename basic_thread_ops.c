@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 08:46:50 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 14:20:29 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ void	get_time_values(t_philos *philo, char **argv)
 
 void	get_philo_values(t_philos *philo, char **argv)
 {
-	get_time_values(philo, argv);
-	printf("Number of philo = %d\n", (int)philo->init->number_of_philo);
-	printf("Time to die = %d\n", (int)philo->init->time_to_die);
-	printf("Time to eat = %d\n", (int)philo->init->time_to_eat);
-	printf("Time to sleep = %d\n", (int)philo->init->time_to_sleep);
-	printf("Minimum times to eat= %d\n", (int)philo->init->minimum_eat_times);
+	if (philo && philo->init)
+	{
+		get_time_values(philo, argv);
+		printf("Number of philo = %d\n", (int)philo->init->number_of_philo);
+		printf("Time to die = %d\n", (int)philo->init->time_to_die);
+		printf("Time to eat = %d\n", (int)philo->init->time_to_eat);
+		printf("Time to sleep = %d\n", (int)philo->init->time_to_sleep);
+		printf("Minimum times to eat= %d\n", (int)philo->init->minimum_eat_times);
+	}
 }
-
 int check_death(t_philos *philo)
 {
 	printf("CHECKING DEATH\n");
@@ -77,7 +79,7 @@ void	print_message(t_philos *philo, char *str)
 {
 	t_time	now;
 	t_time	start;
-	start = philo->init->start_time;
+	start = philos()->init->start_time;
 	philo = philos();
 	now = get_current_time_ms() - start;
 	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id,

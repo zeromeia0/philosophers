@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 08:44:55 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 14:19:07 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char *argv[])
 	if (!(philo = malloc(sizeof(t_philos))))
 		return (printf("Couldn't load main struct\n"), -1);
 	// t_philos *main_philo = philos();
-	philo[0].init = init;
+	philo = philos();
 	get_philo_values(philo, argv);
 	for (int i = 0; i < number_of_philo; i++)
 	{
