@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 14:53:22 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:42:53 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void	get_philo_values(t_philos *philo, char **argv)
 }
 int check_death(t_philos *philo)
 {
-	printf("CHECKING DEATH\n");
 	// if (philo->times_eaten == philo->init->minimum_eat_times)
-	// 	return (-1);
-	if (get_current_time_ms() - philo->init->time_of_last_meal > philo->init->time_to_eat)
-		return (printf("some dude died\n"), philo->death_flag = 1, -1);
+		// return (printf("ANIMAL\n"), -1);
+	// if (get_current_time_ms() - philo->init->time_of_last_meal > philo->init->time_to_eat)
+	// 	return (printf("some dude died\n"), philo->death_flag = 1, -1);
 	return (0);
 }
 
@@ -80,7 +79,7 @@ void	print_message(t_philos *philo, char *str)
 	t_time	start;
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
-	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id,
+	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id + 1,
 		str);
 }
 
@@ -93,7 +92,7 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 	(void)philo;
 	for (i = 0; i < number_of_philos; i++)
 	{
-		if (pthread_create(&th[i], NULL, &socrates, NULL) != 0)
+		if (pthread_create(&th[i], NULL, /* &routine_loop */&routine_loop, &philo[i]) != 0)
 			return (perror("Fracassado\n"), 1);
 		// philo[i].id = i;
 	}
@@ -101,21 +100,22 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 	return (0);
 }
 
-int master_loop(t_philos *philo)
+void *routine_loop(void *arg)
 {
-	printf("INSIDE MASTER LOOP\n");
-	// while (philo->death_flag == 0)
-	// {
-	for (int i = 0; i < 10000; i++)
+	t_philos *philo;
+	philo = (t_philos *)arg;
+	if (philo->id % 2 == 0)
+		usleep(100);
+	for (int i = 0; i < 5; i++)
 	{
-		if (philo_thinking(&philo[5]) != 0)
-			return (-1);
-		if (philo_sleeping(&philo[5]) != 0)
-			return (-1);
-		if (philo_eating(&philo[5]) != 0)
-			return (-1);
+		if (philo_eating(philo) != 0)
+			break ;
+		if (philo_sleeping(philo) != 0)
+			break ;
+		if (philo_thinking(philo) != 0)
+			break ;
 	}
-	return (0);
+	return (NULL);
 }
 
 int	join_threads(int number_of_philos, pthread_t th[number_of_philos])

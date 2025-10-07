@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:22:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 08:43:30 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/07 16:17:55 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@
 # include <threads.h>
 # include <unistd.h>
 
-# define SLEEP "%d %d is sleeping"
+#define CLR_RESET   "\033[0m"
+#define CLR_RED     "\033[31m"
+#define CLR_GREEN   "\033[32m"
+#define CLR_YELLOW  "\033[33m"
+#define CLR_BLUE    "\033[34m"
+#define CLR_MAGENTA "\033[35m"
 
 typedef unsigned long long	t_time;
 
@@ -43,7 +48,8 @@ typedef struct s_init_vars
 
 typedef struct s_philo
 {
-	int						death_flag;
+	// pthread_mutex_t						death_flag;
+	int				death_flag;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	int						times_eaten;
@@ -69,6 +75,7 @@ int	philo_thinking(t_philos *philo);
 int	philo_sleeping(t_philos *philo);
 int	philo_eating(t_philos *philo);
 int check_death(t_philos *philo);
-int master_loop(t_philos *philo);
+void *routine_loop(void *arg);
+size_t	get_current_time(void);
 
 #endif
