@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+         #
+#    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/07 15:41:54 by vivaz-ca         ###   ########.fr        #
+#    Updated: 2025/10/13 23:07:33 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ OBJDIR = objs
 
 SRC = $(SRCDIR)/philo.c \
       $(SRCDIR)/basic_thread_ops.c \
-      $(SRCDIR)/auxiliar.c
+	  $(SRCDIR)/philo_actions.c \
+	  $(SRCDIR)/init.c \
+      $(SRCDIR)/utils.c
 
 OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -43,17 +45,17 @@ fclean: clean
 re: fclean all
 
 a: re
-	@./philo 4 410 200 200
+	@./philo 6 410 200 200
 
 b: re	
-	@./philo 4 410 200 200 3
+	@./philo 6 410 200 200 3
 
 val: re
-	@valgrind --leak-check=full ./philo 4 40 200 500 400
+	@valgrind --leak-check=full ./philo 6 40 200 500 400
 
 ll: re
-	lldb ./philo 4 40 200 500 400
+	lldb ./philo 6 40 200 500 400
 
 gdb: re
-	gdb ./philo 4 40 200 500 400
+	gdb ./philo 6 40 200 500 400
 .PHONY: all clean fclean re a b val

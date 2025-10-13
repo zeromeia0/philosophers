@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   auxiliar.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/06 23:02:58 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:15:25 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/time.h>
+
 
 long	ft_atol(const char *str)
 {
@@ -53,6 +55,19 @@ int	is_number(char *str)
 	return (0);
 }
 
+t_time	get_current_time_ms(void)
+{
+	struct timeval	tv;
+	
+	gettimeofday(&tv, NULL);                                    
+	return (t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL);
+	/*  milliseconds */
+	/* 	1000ULL -> converts to miliss
+	tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
+	time_t tv_sec;   // seconds since Jan 1, 1970 (the Unix epoch)
+	suseconds_t tv_usec; // microseconds (millionths of a second) */
+}
+
 size_t	get_current_time(void)
 {
 	struct timeval	time;
@@ -61,14 +76,4 @@ size_t	get_current_time(void)
 		write(2, "gettimeofday() error\n", 22);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 		// search about this right here
-}
-
-int	ft_usleep(size_t milliseconds)
-{
-	size_t	start;
-
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
-		usleep(500);
-	return (0);
 }
