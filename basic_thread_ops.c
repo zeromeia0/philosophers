@@ -6,17 +6,19 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 23:08:06 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:32:27 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
 int check_death(t_philos *philo)
 {
-	if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
-		return (printf("BARRIGA CHEIA\n"), -1);
+	// if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+	// 	return (printf("BARRIGA CHEIA\n"), -1);
+	crazy_print(philo);
+	if ((unsigned int)get_current_time_ms() - (unsigned int)philo->init->time_of_last_meal - (unsigned int)philo->init->start_time > (unsigned int)philo->init->time_to_die)
+		return (printf("died of hunger\n"), -1);
 	return (0);
 }
 

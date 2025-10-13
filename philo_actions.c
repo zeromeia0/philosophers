@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/13 23:15:08 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:30:49 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	philo_sleeping(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE\n"), -1);
-	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE 2\n"), -1);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	// if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
+	// 	return (printf("FAILURE\n"), -1);
+	// if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
+	// 	return (printf("FAILURE 2\n"), -1);
+	// pthread_mutex_unlock(philo->left_fork);
+	// pthread_mutex_unlock(philo->right_fork);
 	print_message(philo, CLR_BLUE "Is sleeping\n" CLR_RESET);
 	usleep((int)philo->init->time_to_sleep);
 	return (0);
@@ -49,12 +49,12 @@ int	philo_thinking(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE\n"), -1);
-	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE 2\n"), -1);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	// if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
+	// 	return (printf("FAILURE\n"), -1);
+	// if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
+	// 	return (printf("FAILURE 2\n"), -1);
+	// pthread_mutex_unlock(philo->left_fork);
+	// pthread_mutex_unlock(philo->right_fork);
 	int total = (int)philo->init->time_to_die - (int)philo->init->time_to_eat - (int)philo->init->time_to_sleep;
 	if (total < 0)
 		total = 0;

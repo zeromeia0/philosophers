@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 23:08:12 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:29:21 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,26 @@ void	print_philo_values(t_philos *philo, char **argv)
 		printf("Time to sleep = %d\n", (int)philo->init->time_to_sleep);
 		printf("Minimum times to eat= %d\n", (int)philo->init->minimum_eat_times);
 	}
+}
+
+void crazy_print(t_philos *philo)
+{
+	t_time current_time_ms = get_current_time_ms();
+	t_time start_time = philo->init->start_time;
+	t_time last_meal = philo->init->time_of_last_meal;
+	t_time time_to_die = philo->init->time_to_die;
+
+	unsigned int elapsed_time = (unsigned int)(get_current_time() - start_time);
+	unsigned int time_since_meal = (unsigned int)(current_time_ms - last_meal - start_time);
+
+	printf("========================\n");
+	printf("Current time      = %u\n", elapsed_time);
+	printf("Time of last meal = %u\n", (unsigned int)last_meal);
+	printf("Time to die       = %u\n", (unsigned int)time_to_die);
+	printf("========================\n");
+
+	printf("Final result      = %u > %u\n", 
+		(unsigned int)time_since_meal, 
+		(unsigned int)time_to_die);
+	printf("========================\n");
 }

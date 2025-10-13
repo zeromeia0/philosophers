@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:22:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 23:09:47 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:29:26 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ typedef struct s_init_vars
 	t_time					time_to_eat;
 	t_time					time_to_sleep;
 	t_time					time_of_last_meal;
-	int					minimum_eat_times;
+	int						minimum_eat_times;
 	t_time					start_time;
 	int						food_counter;
 }							t_init;
 
 typedef struct s_philo
 {
-	pthread_mutex_t						death_flag;
-	// int				death_flag;
+	pthread_mutex_t			death_flag;
+	int						pass_away_flag;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	int						times_eaten;
@@ -84,5 +84,6 @@ void *routine_loop(void *arg);
 size_t	get_current_time(void);
 t_time	get_current_time_ms(void);
 int	ft_usleep(size_t milliseconds);
+void crazy_print(t_philos *philo);
 
 #endif
