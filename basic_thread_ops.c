@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 16:42:53 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:30:12 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_time	get_current_time_ms(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);                                    
-		/* tz is almost always NULL */
 	return (t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL);
 		/*  milliseconds */
 	/* 	1000ULL -> converts to miliss
@@ -28,7 +27,7 @@ t_time	get_current_time_ms(void)
 	suseconds_t tv_usec; // microseconds (millionths of a second) */
 }
 
-void	get_time_values(t_philos *philo, char **argv)
+void	init_values(t_philos *philo, char **argv)
 {
 	int	i;
 
@@ -41,22 +40,23 @@ void	get_time_values(t_philos *philo, char **argv)
 		if (argv[5])
 			philo->init->minimum_eat_times = ft_atol(argv[5]);
 		else
-			philo->init->minimum_eat_times = 0;
+			philo->init->minimum_eat_times = -1;
 		philo->init->start_time = get_current_time_ms();
+		philo->init->food_counter = 0;
 		i = 0;
 		while (i < philo->init->number_of_philo)
 		{
-			philo[i].id = i; /* why does this lines crashes the stuff? */
+			philo[i].id = i;
 			i++;
 		}
 	}
 }
 
-void	get_philo_values(t_philos *philo, char **argv)
+void	print_philo_values(t_philos *philo, char **argv)
 {
 	if (philo && philo->init)
 	{
-		get_time_values(philo, argv);
+		init_values(philo, argv);
 		printf("Number of philo = %d\n", (int)philo->init->number_of_philo);
 		printf("Time to die = %d\n", (int)philo->init->time_to_die);
 		printf("Time to eat = %d\n", (int)philo->init->time_to_eat);
@@ -66,10 +66,11 @@ void	get_philo_values(t_philos *philo, char **argv)
 }
 int check_death(t_philos *philo)
 {
-	// if (philo->times_eaten == philo->init->minimum_eat_times)
-		// return (printf("ANIMAL\n"), -1);
+	if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+		return (printf("BARRIGA CHEIA\n"), -1);
+	// printf(("================================\nCurrent Time: %d\nTime of last meal: %d\nTime to eat var: %d=============", (int)get_current_time_ms(), philo->init->time_of_last_meal, ft_atol(philo->init->time_to_eat)));
 	// if (get_current_time_ms() - philo->init->time_of_last_meal > philo->init->time_to_eat)
-	// 	return (printf("some dude died\n"), philo->death_flag = 1, -1);
+	// 	return (printf("some dude died\n"), -1);
 	return (0);
 }
 
@@ -92,9 +93,8 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 	(void)philo;
 	for (i = 0; i < number_of_philos; i++)
 	{
-		if (pthread_create(&th[i], NULL, /* &routine_loop */&routine_loop, &philo[i]) != 0)
+		if (pthread_create(&th[i], NULL, &routine_loop, &philo[i]) != 0)
 			return (perror("Fracassado\n"), 1);
-		// philo[i].id = i;
 	}
 	printf("Finished giving birth to %d philosophers\n", i);
 	return (0);

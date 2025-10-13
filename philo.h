@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:22:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 16:17:55 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:17:00 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ typedef struct s_init_vars
 	t_time					time_of_last_meal;
 	int					minimum_eat_times;
 	t_time					start_time;
+	int						food_counter;
 }							t_init;
 
 typedef struct s_philo
 {
-	// pthread_mutex_t						death_flag;
-	int				death_flag;
+	pthread_mutex_t						death_flag;
+	// int				death_flag;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	int						times_eaten;
@@ -61,7 +62,7 @@ long						ft_atol(const char *str);
 int							ft_strlen(char *str);
 void						ft_putstr_fd(int fd, char *str);
 int							is_number(char *str);
-void						get_time_values(t_philos *philo, char **argv);
+void						init_values(t_philos *philo, char **argv);
 int							create_threads(int number_of_philos,
 								pthread_t th[number_of_philos],
 								t_philos *philo);
@@ -70,7 +71,7 @@ int							join_threads(int number_of_philos,
 void						*socrates(void *arg);
 void						print_message(t_philos *philo, char *str);
 t_philos					*philos(void);
-void						get_philo_values(t_philos *philo, char **argv);
+void						print_philo_values(t_philos *philo, char **argv);
 int	philo_thinking(t_philos *philo);
 int	philo_sleeping(t_philos *philo);
 int	philo_eating(t_philos *philo);
