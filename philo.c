@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/07 16:43:41 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:55:30 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void	*socrates(void *arg)
 {
 	(void)arg;
-	// printf("A philosopher is being created\n");
 	return (NULL);
 }
 
