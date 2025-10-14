@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 17:04:50 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:40:21 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,14 @@ int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 	return (0);
 }
 
-// check death
+void monitor(t_philos *philo)
+{
+	if (check_death(philo) != 0)
+		print_message(philo, "died");
+	if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+		printf("BARRIGA CHEIA\n");
+}
+
 int	main(int argc, char *argv[])
 {
 	int			number_of_philo;
@@ -58,7 +65,7 @@ int	main(int argc, char *argv[])
 	
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
-	// master_loop(&philo[1]);
+	monitor(philo);
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
 	// printf("FINISHED ACIONS\n");
