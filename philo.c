@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 19:17:12 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:23:14 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void monitor(t_philos *philo)
 			print_message(philo, "died\n");
 			break ;
 		}
-		
 		if (delivery_calculator(philo) != 0)
 		{
 			printf("BARRIGA CHEIA\n");

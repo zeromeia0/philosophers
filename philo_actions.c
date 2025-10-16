@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/16 21:03:10 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:21:20 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void *routine_loop(void *arg)
 	while (check_death(philo) != -1 && delivery_calculator(philo) != 1)
 	{
 	if (philo->id % 2 == 1)
-		usleep(100);
+		ft_usleep(100);
 	if (philo_eating(philo) != 0)
 		break ;
 	if (philo_sleeping(philo) != 0)
@@ -35,7 +35,7 @@ int	philo_sleeping(t_philos *philo)
 	if (check_death(philo) != 0)
 		return (-1);
 	print_message(philo, CLR_BLUE "Is sleeping\n" CLR_RESET);
-	usleep((int)philo->init->time_to_sleep);
+	ft_usleep((int)philo->init->time_to_sleep);
 	return (0);
 }
 
@@ -46,7 +46,7 @@ int	philo_thinking(t_philos *philo)
 	int total = (int)philo->init->time_to_die - (int)philo->init->time_to_eat - (int)philo->init->time_to_sleep;
 	if (total < 0)
 		total = 0;
-	usleep(total);
+	ft_usleep(total);
 	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET);
 	return (0);
 }
@@ -66,6 +66,6 @@ int	philo_eating(t_philos *philo)
 	print_message(philo, "Dropped left fork\n");
 	pthread_mutex_unlock(philo->right_fork);
 	print_message(philo, "Dropped right fork\n");
-	usleep((int)philo->init->time_to_eat);
+	ft_usleep((int)philo->init->time_to_eat);
 	return (0);
 }
