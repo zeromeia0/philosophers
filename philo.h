@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/05 20:22:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 23:29:26 by vvazzs           ###   ########.fr       */
+/*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
+/*   Updated: 2025/10/16 19:06:19 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+#include <bits/pthreadtypes.h>
 # include <dirent.h>
 # include <pthread.h>
 # include <signal.h>
@@ -41,24 +42,25 @@ typedef unsigned long long	t_time;
 
 typedef struct s_init_vars
 {
+	int						food_counter;
 	int						number_of_philo;
+	int						minimum_eat_times;
 	t_time					time_to_die;
 	t_time					time_to_eat;
 	t_time					time_to_sleep;
-	t_time					time_of_last_meal;
-	int						minimum_eat_times;
 	t_time					start_time;
-	int						food_counter;
+	pthread_mutex_t			*general_forks;
 }							t_init;
 
 typedef struct s_philo
 {
-	pthread_mutex_t			death_flag;
+	int						id;
+	int						times_eaten;
 	int						pass_away_flag;
+	t_time					time_of_last_meal;
+	pthread_mutex_t			death_flag;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
-	int						times_eaten;
-	int						id;
 	t_init					*init;
 }							t_philos;
 

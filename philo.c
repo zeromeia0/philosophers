@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/14 15:40:21 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:52:11 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,20 @@ int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 
 void monitor(t_philos *philo)
 {
-	if (check_death(philo) != 0)
-		print_message(philo, "died");
-	if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
-		printf("BARRIGA CHEIA\n");
+	while (1)
+	{
+		if (check_death(philo) != 0)
+		{
+			print_message(philo, "died\n");
+			break ;
+		}
+		
+		if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+		{
+			printf("BARRIGA CHEIA\n");
+			break ;
+		}
+	}
 }
 
 int	main(int argc, char *argv[])

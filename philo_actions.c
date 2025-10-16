@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/14 15:31:57 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:06:09 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void *routine_loop(void *arg)
 {
 	t_philos *philo;
 	philo = (t_philos *)arg;
+	while (1)
+	{
 	if (philo->id % 2 == 0)
 		usleep(10);
-	for (int i = 0; i < 5; i++)
-	{
-		if (philo_eating(philo) != 0)
-			break ;
-		if (philo_sleeping(philo) != 0)
-			break ;
-		if (philo_thinking(philo) != 0)
-			break ;
+	if (philo_eating(philo) != 0)
+		break ;
+	if (philo_sleeping(philo) != 0)
+		break ;
+	if (philo_thinking(philo) != 0)
+		break ;
 	}
 	return (NULL);
 }
@@ -65,7 +65,7 @@ int	philo_eating(t_philos *philo)
 	print_message(philo, CLR_GREEN"Grabbed right fork\n" CLR_RESET);
 	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET);
 	philo->init->food_counter++;
-	philo->init->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
+	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
 	pthread_mutex_unlock(philo->left_fork);
 	print_message(philo, "Dropped left fork\n");
 	pthread_mutex_unlock(philo->right_fork);

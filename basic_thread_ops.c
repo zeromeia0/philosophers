@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/14 15:41:31 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:06:01 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int check_death(t_philos *philo)
 {
 	// if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
 	// 	return (printf("BARRIGA CHEIA\n"), -1);
-	crazy_print(philo);
-	if ((unsigned int)get_current_time_ms() - (unsigned int)philo->init->time_of_last_meal - (unsigned int)philo->init->start_time >= (unsigned int)philo->init->time_to_die)
+	// crazy_print(philo);
+	if ((unsigned int)get_current_time_ms() - (unsigned int)philo->time_of_last_meal - (unsigned int)philo->init->start_time > (unsigned int)philo->init->time_to_die)
 		return (printf("died of hunger\n"), -1);
 	return (0);
 }
@@ -44,10 +44,9 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 		if (pthread_create(&th[i], NULL, &routine_loop, &philo[i]) != 0)
 			return (perror("Fracassado\n"), 1);
 	}
-	printf("Finished giving birth to %d philosophers\n", i);
+	// printf("Finished giving birth to %d philosophers\n", i);
 	return (0);
 }
-
 
 int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 {
