@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/16 19:06:09 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:03:10 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void *routine_loop(void *arg)
 {
 	t_philos *philo;
 	philo = (t_philos *)arg;
-	while (1)
+	while (check_death(philo) != -1 && delivery_calculator(philo) != 1)
 	{
-	if (philo->id % 2 == 0)
-		usleep(10);
+	if (philo->id % 2 == 1)
+		usleep(100);
 	if (philo_eating(philo) != 0)
 		break ;
 	if (philo_sleeping(philo) != 0)
@@ -55,10 +55,6 @@ int	philo_eating(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	if (!(philo->left_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE\n"), -1);
-	if (!(philo->right_fork = malloc(sizeof(pthread_mutex_t))))
-		return (printf("FAILURE 2\n"), free(philo->right_fork), -1);
 	pthread_mutex_lock(philo->left_fork);
 	print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET);
 	pthread_mutex_lock(philo->right_fork);

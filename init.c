@@ -6,36 +6,42 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/13 23:29:21 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 20:59:19 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <bits/pthreadtypes.h>
 
 void	init_values(t_philos *philo, char **argv)
 {
 	int	i;
 
-	if (philo && philo->init)
+	if (!philo || !philo->init)
+		return;
+	philo->init->number_of_philo = ft_atol(argv[1]);
+	philo->init->time_to_die = ft_atol(argv[2]);
+	philo->init->time_to_eat = ft_atol(argv[3]);
+	philo->init->time_to_sleep = ft_atol(argv[4]);
+	philo->init->minimum_eat_times = argv[5] ? ft_atol(argv[5]) : -1;
+	philo->init->start_time = get_current_time_ms();
+	philo->init->food_counter = 0;
+	philo->init->general_forks = malloc(sizeof(pthread_mutex_t) * philo->init->number_of_philo);
+	if (!philo->init->general_forks)
+		return;
+	i = -1;
+	while (++i < philo->init->number_of_philo)
+		pthread_mutex_init(&philo->init->general_forks[i], NULL);
+	i = -1;
+	while (++i < philo->init->number_of_philo)
 	{
-		philo->init->number_of_philo = ft_atol(argv[1]);
-		philo->init->time_to_die = ft_atol(argv[2]);
-		philo->init->time_to_eat = ft_atol(argv[3]);
-		philo->init->time_to_sleep = ft_atol(argv[4]);
-		if (argv[5])
-			philo->init->minimum_eat_times = ft_atol(argv[5]);
-		else
-			philo->init->minimum_eat_times = -1;
-		philo->init->start_time = get_current_time_ms();
-		philo->init->food_counter = 0;
-		i = 0;
-		while (i < philo->init->number_of_philo)
-		{
-			philo[i].id = i;
-			i++;
-		}
+		philo[i].id = i;
+		philo[i].init = philo->init;
+		philo[i].left_fork = &philo->init->general_forks[i];
+		philo[i].right_fork = &philo->init->general_forks[(i + 1) % philo->init->number_of_philo];
 	}
 }
+
 
 void	print_philo_values(t_philos *philo, char **argv)
 {
@@ -54,7 +60,7 @@ void crazy_print(t_philos *philo)
 {
 	t_time current_time_ms = get_current_time_ms();
 	t_time start_time = philo->init->start_time;
-	t_time last_meal = philo->init->time_of_last_meal;
+	t_time last_meal = philo->time_of_last_meal;
 	t_time time_to_die = philo->init->time_to_die;
 
 	unsigned int elapsed_time = (unsigned int)(get_current_time() - start_time);

@@ -6,29 +6,25 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 19:06:19 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 19:20:39 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <bits/pthreadtypes.h>
-# include <dirent.h>
 # include <pthread.h>
+# include <sys/time.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <sys/stat.h>
-# include <sys/time.h>
+# include <dirent.h>
 # include <sys/wait.h>
 # include <termios.h>
-# include <threads.h>
-# include <unistd.h>
-#include <bits/types/struct_timeval.h>
-#include <sys/time.h>
-#include <time.h>
+# include <time.h>
 
 
 #define CLR_RESET   "\033[0m"
@@ -66,6 +62,7 @@ typedef struct s_philo
 
 long						ft_atol(const char *str);
 int							ft_strlen(char *str);
+int delivery_calculator(t_philos *philo);
 void						ft_putstr_fd(int fd, char *str);
 int							is_number(char *str);
 void						init_values(t_philos *philo, char **argv);

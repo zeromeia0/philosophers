@@ -6,14 +6,11 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 18:52:11 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/16 19:17:12 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <stdbool.h>
 
 int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 {
@@ -29,6 +26,13 @@ int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 	return (0);
 }
 
+int delivery_calculator(t_philos *philo)
+{
+	if (philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+		return (-1);
+	return (0);
+}
+
 void monitor(t_philos *philo)
 {
 	while (1)
@@ -39,7 +43,7 @@ void monitor(t_philos *philo)
 			break ;
 		}
 		
-		if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
+		if (delivery_calculator(philo) != 0)
 		{
 			printf("BARRIGA CHEIA\n");
 			break ;
