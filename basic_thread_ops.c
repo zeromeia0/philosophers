@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 19:13:13 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:32:34 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int check_death(t_philos *philo)
 {
-	// if (philo->init->minimum_eat_times != -1 && philo->init->food_counter == philo->init->minimum_eat_times * philo->init->number_of_philo)
-	// 	return (printf("BARRIGA CHEIA\n"), -1);
 	// crazy_print(philo);
-	if ((unsigned int)get_current_time_ms() - (unsigned int)philo->time_of_last_meal - (unsigned int)philo->init->start_time > (unsigned int)philo->init->time_to_die)
-		return (printf("died of hunger\n"), philo->pass_away_flag = 1, -1);
+	if ((U_INT)get_current_time_ms() - (U_INT)philo->time_of_last_meal - (U_INT)philo->init->start_time > (U_INT)philo->init->time_to_die)
+		return (/* printf("died of hunger\n"),  */philo->pass_away_flag = 1, -1);
 	return (0);
 }
 
@@ -28,8 +26,10 @@ void	print_message(t_philos *philo, char *str)
 	t_time	start;
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
-	printf("Time of day: %u | Philo id: %d %s", (unsigned int)now, philo->id + 1,
+	pthread_mutex_lock(&philo->lock_to_message);
+	printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
 		str);
+	pthread_mutex_unlock(&philo->lock_to_message);
 }
 
 int	create_threads(int number_of_philos, pthread_t th[number_of_philos],

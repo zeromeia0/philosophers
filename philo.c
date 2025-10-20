@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 21:23:14 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:27:17 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void monitor(t_philos *philo)
 {
 	while (1)
 	{
-		if (check_death(philo) != 0)
+		if (check_death(philo) == -1)
 		{
 			print_message(philo, "died\n");
 			break ;
@@ -67,7 +67,6 @@ int	main(int argc, char *argv[])
 		return (printf("Couldn't load main struct\n"), -1);
 	if (!(threads = malloc(sizeof(pthread_t) * number_of_philo)))
 		return (printf("Couldn't allocate threads\n"), -1);
-
 	for (int i = 0; i < number_of_philo; i++)
 	{
 		philo[i].id = i;
@@ -79,6 +78,7 @@ int	main(int argc, char *argv[])
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
 	monitor(philo);
+	printf("====exiting====\n");
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
 	// printf("FINISHED ACIONS\n");

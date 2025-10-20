@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 20:59:19 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:30:40 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_values(t_philos *philo, char **argv)
 	philo->init->start_time = get_current_time_ms();
 	philo->init->food_counter = 0;
 	philo->init->general_forks = malloc(sizeof(pthread_mutex_t) * philo->init->number_of_philo);
+	pthread_mutex_init(&philo->lock_to_message, NULL);
 	if (!philo->init->general_forks)
 		return;
 	i = -1;
@@ -63,17 +64,17 @@ void crazy_print(t_philos *philo)
 	t_time last_meal = philo->time_of_last_meal;
 	t_time time_to_die = philo->init->time_to_die;
 
-	unsigned int elapsed_time = (unsigned int)(get_current_time() - start_time);
-	unsigned int time_since_meal = (unsigned int)(current_time_ms - last_meal - start_time);
+	U_INT elapsed_time = (U_INT)(get_current_time() - start_time);
+	U_INT time_since_meal = (U_INT)(current_time_ms - last_meal - start_time);
 
 	printf("========================\n");
 	printf("Current time      = %u\n", elapsed_time);
-	printf("Time of last meal = %u\n", (unsigned int)last_meal);
-	printf("Time to die       = %u\n", (unsigned int)time_to_die);
+	printf("Time of last meal = %u\n", (U_INT)last_meal);
+	printf("Time to die       = %u\n", (U_INT)time_to_die);
 	printf("========================\n");
 
 	printf("Final result      = %u > %u\n", 
-		(unsigned int)time_since_meal, 
-		(unsigned int)time_to_die);
+		(U_INT)time_since_meal, 
+		(U_INT)time_to_die);
 	printf("========================\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/16 21:19:23 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:30:11 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 #define CLR_YELLOW  "\033[33m"
 #define CLR_BLUE    "\033[34m"
 #define CLR_MAGENTA "\033[35m"
-
+#define U_INT unsigned int
 typedef unsigned long long	t_time;
 
 typedef struct s_init_vars
@@ -57,6 +57,7 @@ typedef struct s_philo
 	pthread_mutex_t			death_flag;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
+	pthread_mutex_t			lock_to_message;
 	t_init					*init;
 }							t_philos;
 
