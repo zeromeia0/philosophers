@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/20 17:27:17 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:57:50 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void monitor(t_philos *philo)
 	{
 		if (check_death(philo) == -1)
 		{
-			print_message(philo, "died\n");
+			// print_message(philo, "died\n");
 			break ;
 		}
 		if (delivery_calculator(philo) != 0)
@@ -83,6 +83,7 @@ int	main(int argc, char *argv[])
 		return (perror("Failure\n"), 1);
 	// printf("FINISHED ACIONS\n");
 	printf("Number of philos: %s\n", argv[1]);
+	printf("TImes eaten = %u\n", (U_INT)philo->init->food_counter);
 	if (init)
 		free(init);
 	// if (philo)

@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/20 17:32:34 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:45:49 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int check_death(t_philos *philo)
 {
 	// crazy_print(philo);
 	if ((U_INT)get_current_time_ms() - (U_INT)philo->time_of_last_meal - (U_INT)philo->init->start_time > (U_INT)philo->init->time_to_die)
-		return (/* printf("died of hunger\n"),  */philo->pass_away_flag = 1, -1);
+		return (philo->pass_away_flag = 1, -1);
 	return (0);
 }
 
