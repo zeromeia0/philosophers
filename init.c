@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/20 17:30:40 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/22 10:16:13 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_values(t_philos *philo, char **argv)
 	philo->init->minimum_eat_times = argv[5] ? ft_atol(argv[5]) : -1;
 	philo->init->start_time = get_current_time_ms();
 	philo->init->food_counter = 0;
+	philo->init->stop_simulation = 0;
 	philo->init->general_forks = malloc(sizeof(pthread_mutex_t) * philo->init->number_of_philo);
 	pthread_mutex_init(&philo->lock_to_message, NULL);
 	if (!philo->init->general_forks)

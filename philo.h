@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/20 17:30:11 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:33:22 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ typedef struct s_init_vars
 	int						food_counter;
 	int						number_of_philo;
 	int						minimum_eat_times;
+	int						stop_simulation;
 	t_time					time_to_die;
 	t_time					time_to_eat;
 	t_time					time_to_sleep;
 	t_time					start_time;
 	pthread_mutex_t			*general_forks;
+	pthread_mutex_t			stop_lock;
 }							t_init;
 
 typedef struct s_philo
@@ -85,5 +87,6 @@ size_t	get_current_time(void);
 t_time	get_current_time_ms(void);
 void	ft_usleep(size_t milliseconds);
 void crazy_print(t_philos *philo);
+int should_stop(t_philos *philo);
 
 #endif

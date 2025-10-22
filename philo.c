@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/21 13:57:50 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/22 10:18:17 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void monitor(t_philos *philo)
 		}
 		if (delivery_calculator(philo) != 0)
 		{
+			pthread_mutex_lock(&philo->init->stop_lock);
+			philo->init->stop_simulation = 1;
+			pthread_mutex_unlock(&philo->init->stop_lock);
 			printf("BARRIGA CHEIA\n");
 			break ;
 		}

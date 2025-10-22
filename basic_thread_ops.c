@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/21 13:45:49 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:33:36 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	print_message(t_philos *philo, char *str)
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
 	pthread_mutex_lock(&philo->lock_to_message);
-	printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
+	if (should_stop(philo) == 0)
+		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
 		str);
 	pthread_mutex_unlock(&philo->lock_to_message);
 }
