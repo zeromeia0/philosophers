@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 10:18:17 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:43:59 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void monitor(t_philos *philo)
 	{
 		if (check_death(philo) == -1)
 		{
-			// print_message(philo, "died\n");
+			print_message(philo, "died\n", 1);
+			pthread_mutex_lock(&philo->init->stop_lock);
+			philo->init->stop_simulation = 1;
+			pthread_mutex_unlock(&philo->init->stop_lock);
 			break ;
 		}
 		if (delivery_calculator(philo) != 0)

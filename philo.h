@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 11:33:22 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:41:34 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int							create_threads(int number_of_philos,
 int							join_threads(int number_of_philos,
 								pthread_t th[number_of_philos]);
 void						*socrates(void *arg);
-void						print_message(t_philos *philo, char *str);
+void	print_message(t_philos *philo, char *str, int is_dead);
 t_philos					*philos(void);
 void						print_philo_values(t_philos *philo, char **argv);
 int	philo_thinking(t_philos *philo);
@@ -88,5 +88,7 @@ t_time	get_current_time_ms(void);
 void	ft_usleep(size_t milliseconds);
 void crazy_print(t_philos *philo);
 int should_stop(t_philos *philo);
+void print_death(t_philos *philo, char *str);
+
 
 #endif

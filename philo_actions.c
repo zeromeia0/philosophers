@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/22 11:35:04 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:43:04 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	philo_sleeping(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	print_message(philo, CLR_BLUE "Is sleeping\n" CLR_RESET);
+	print_message(philo, CLR_BLUE "Is sleeping\n" CLR_RESET, 0);
 	ft_usleep((size_t)philo->init->time_to_sleep);
 	return (0);
 }
@@ -55,7 +55,7 @@ int	philo_thinking(t_philos *philo)
 	// if (total < 0)
 		// total = 0;	
 	ft_usleep(100);
-	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET);
+	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET, 0);
 	return (0);
 }
 
@@ -65,18 +65,18 @@ int	philo_eating(t_philos *philo)
 		return (-1);
 	// pthread_mutex_lock(philo->init->general_forks);
 	pthread_mutex_lock(philo->left_fork);
-	print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET);
+	print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET, 0);
 	pthread_mutex_lock(philo->right_fork);
-	print_message(philo, CLR_GREEN"Grabbed right fork\n" CLR_RESET);
-	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET);
+	print_message(philo, CLR_GREEN"Grabbed right fork\n" CLR_RESET, 0);
+	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET, 0);
 	philo->init->food_counter++;
 	// printf("\n====Food counter: %d====\n", philo->init->food_counter);
 	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
 	ft_usleep(philo->init->time_to_eat);
-	pthread_mutex_unlock(philo->left_fork);
-	print_message(philo, "Dropped left fork\n");
 	pthread_mutex_unlock(philo->right_fork);
-	print_message(philo, "Dropped right fork\n");
+	print_message(philo, "Dropped right fork\n", 0);
+	pthread_mutex_unlock(philo->left_fork);
+	print_message(philo, "Dropped left fork\n", 0);
 	// pthread_mutex_unlock(philo->init->general_forks);
 	return (0);
 }

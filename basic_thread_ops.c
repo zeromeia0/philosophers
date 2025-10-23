@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 11:33:36 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:42:27 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,34 @@ int check_death(t_philos *philo)
 	return (0);
 }
 
-void	print_message(t_philos *philo, char *str)
+void print_death(t_philos *philo, char *str) //FIX THIS SHIT AND MAKE PRINT MESSAGE WORK HERE
 {
 	t_time	now;
 	t_time	start;
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
 	pthread_mutex_lock(&philo->lock_to_message);
-	if (should_stop(philo) == 0)
+	if (should_stop(philo) == 1)
 		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
 		str);
+	pthread_mutex_unlock(&philo->lock_to_message);
+}
+
+void	print_message(t_philos *philo, char *str, int is_dead)
+{
+	t_time	now;
+	t_time	start;
+	start = philo->init->start_time;
+	now = get_current_time_ms() - start;
+	pthread_mutex_lock(&philo->lock_to_message);
+	if (should_stop(philo) == 0 && is_dead == 0)
+		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
+		str);
+	if (is_dead == 1)
+	{
+		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
+		str);
+	}
 	pthread_mutex_unlock(&philo->lock_to_message);
 }
 
