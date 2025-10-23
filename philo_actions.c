@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/22 13:43:04 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/23 17:04:30 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void *routine_loop(void *arg)
 	while (!should_stop(philo))
 	{
 	if (philo->id % 2 == 1)
-		ft_usleep(100);
+		ft_usleep(philo->init->time_to_eat / 2);
 	if (philo_eating(philo) != 0)
 		break ;
 	if (philo_sleeping(philo) != 0)
@@ -54,7 +54,7 @@ int	philo_thinking(t_philos *philo)
 	// int total = (int)philo->init->time_to_die - (int)philo->init->time_to_eat - (int)philo->init->time_to_sleep; //FIND A WAY TO DEAL WITH THIS SHIT
 	// if (total < 0)
 		// total = 0;	
-	ft_usleep(100);
+	ft_usleep((int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep);
 	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET, 0);
 	return (0);
 }
@@ -63,6 +63,14 @@ int	philo_eating(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
+	if (philo->init->number_of_philo == 1)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET, 0);
+		pthread_mutex_unlock(philo->left_fork);
+		ft_usleep(philo->init->time_to_die);
+		return (1);
+	}
 	// pthread_mutex_lock(philo->init->general_forks);
 	pthread_mutex_lock(philo->left_fork);
 	print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET, 0);
