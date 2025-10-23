@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 13:43:59 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/23 14:08:43 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 	}
 	if (argc < 5 || argc > 6)
 		return (printf("Invalid number of args\n"), 1);
+	if (*argv[1] == '0')
+		return (1);
 	return (0);
 }
 
@@ -76,7 +78,7 @@ int	main(int argc, char *argv[])
 	for (int i = 0; i < number_of_philo; i++)
 	{
 		philo[i].id = i;
-		printf("ID CREATION: %d\n", philo[i].id);
+		// printf("ID CREATION: %d\n", philo[i].id);
 		philo[i].init = init;
 	}
 	print_philo_values(philo, argv);

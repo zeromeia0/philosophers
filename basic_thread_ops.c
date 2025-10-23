@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 13:42:27 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/23 14:19:54 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 {
 	int i;
 
-	i = 0;
+	// i = 0;
 	for (i = 0; i < number_of_philos; i++)
 	{
 		if (pthread_join(th[i], NULL) != 0)

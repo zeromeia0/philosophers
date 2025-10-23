@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
+#    By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/22 13:43:28 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/23 14:15:30 by vivaz-ca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,11 @@ fclean: clean
 re: fclean all
 
 a: re
-	@./philo 5 90 100 200
+# 	@./philo 5 4000 10 200
+	./philo 1 0 0 0
 
 b: re	
-	@./philo 6 410 200 200 3
+	@./philo 6 410 200 200 1
 
 val: re
 	@valgrind --leak-check=full ./philo 6 40 200 500 400
