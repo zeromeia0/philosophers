@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 13:41:34 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/23 17:15:32 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <time.h>
+# include <limits.h>
+
 
 
 #define CLR_RESET   "\033[0m"
