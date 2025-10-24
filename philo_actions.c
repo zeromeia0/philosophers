@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/24 23:30:10 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/24 23:43:08 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ int	philo_eating(t_philos *philo)
 	}
 	// pthread_mutex_lock(philo->init->general_forks);
 	pthread_mutex_lock(philo->left_fork);
-	print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
+	print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
 	pthread_mutex_lock(philo->right_fork);
-	print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
+	print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
 	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET, 0);
 	philo->init->food_counter++;
 	// printf("\n====Food counter: %d====\n", philo->init->food_counter);
 	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
 	ft_usleep(philo->init->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
-	// print_message(philo, "Dropped right fork\n", 0);
+	print_message(philo, "Dropped right fork\n", 0);
 	pthread_mutex_unlock(philo->left_fork);
-	// print_message(philo, "Dropped left fork\n", 0);
+	print_message(philo, "Dropped left fork\n", 0);
 	// pthread_mutex_unlock(philo->init->general_forks);
 	return (0);
 }
