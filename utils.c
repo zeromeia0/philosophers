@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/23 17:16:16 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:44:29 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ long	ft_atol(const char *str)
 			sign = -1;
 		i++;
 	}
+	while (str[i] == '0')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + str[i] - 48;
 		i++;
 	}
+	// printf("result = %ld\n", res * sign);
 	return (res * sign);
 }
 
@@ -48,6 +51,8 @@ int	is_number(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[0] == '+')
+			i++;
 		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (1);
 		i++;

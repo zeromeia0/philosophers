@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/23 17:19:36 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:44:53 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 {
 	int i = 1;
+	printf("aqui\n");
 	while (i < argc)
 	{
 		long check = ft_atol(argv[i]);
