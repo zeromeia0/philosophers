@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/24 16:44:53 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:37:48 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
+int	args_checker(int argc, char *argv[])
 {
 	int i = 1;
-	printf("aqui\n");
-	while (i < argc)
+	if (argc < 5 || argc > 6)
+		return (printf("Invalid number of args\n"), 1);
+	while (i < argc - 1)
 	{
 		long check = ft_atol(argv[i]);
 		if (check <= 0)
@@ -25,9 +26,9 @@ int	args_checker(int argc, char *argv[]) // NEED TO TEST BIG ASS NUMBERS?
 			return (write(2, "Arguments should be numbers only\n", 34), 1);
 		i++;
 	}
-	if (argc < 5 || argc > 6)
-		return (printf("Invalid number of args\n"), 1);
-	if (*argv[1] == '0')
+	
+	i = ft_atol(argv[1]);
+	if (i == 0)
 		return (1);
 	return (0);
 }
@@ -45,7 +46,7 @@ void monitor(t_philos *philo)
 	{
 		if (check_death(philo) == -1)
 		{
-			print_message(philo, "died\n", 1);
+			print_message(philo, CLR_RED"died\n"CLR_RESET, 1);
 			pthread_mutex_lock(&philo->init->stop_lock);
 			philo->init->stop_simulation = 1;
 			pthread_mutex_unlock(&philo->init->stop_lock);

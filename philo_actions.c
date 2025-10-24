@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/23 17:04:30 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:30:10 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ int	philo_thinking(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	// int total = (int)philo->init->time_to_die - (int)philo->init->time_to_eat - (int)philo->init->time_to_sleep; //FIND A WAY TO DEAL WITH THIS SHIT
-	// if (total < 0)
-		// total = 0;	
 	ft_usleep((int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep);
 	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET, 0);
 	return (0);
@@ -66,25 +63,25 @@ int	philo_eating(t_philos *philo)
 	if (philo->init->number_of_philo == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
-		print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET, 0);
+		print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
 		pthread_mutex_unlock(philo->left_fork);
 		ft_usleep(philo->init->time_to_die);
 		return (1);
 	}
 	// pthread_mutex_lock(philo->init->general_forks);
 	pthread_mutex_lock(philo->left_fork);
-	print_message(philo, CLR_GREEN"Grabbed left fork\n" CLR_RESET, 0);
+	print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
 	pthread_mutex_lock(philo->right_fork);
-	print_message(philo, CLR_GREEN"Grabbed right fork\n" CLR_RESET, 0);
+	print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
 	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET, 0);
 	philo->init->food_counter++;
 	// printf("\n====Food counter: %d====\n", philo->init->food_counter);
 	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
 	ft_usleep(philo->init->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
-	print_message(philo, "Dropped right fork\n", 0);
+	// print_message(philo, "Dropped right fork\n", 0);
 	pthread_mutex_unlock(philo->left_fork);
-	print_message(philo, "Dropped left fork\n", 0);
+	// print_message(philo, "Dropped left fork\n", 0);
 	// pthread_mutex_unlock(philo->init->general_forks);
 	return (0);
 }

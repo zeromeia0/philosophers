@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/24 16:44:29 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:15:33 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ long	ft_atol(const char *str)
 			sign = -1;
 		i++;
 	}
-	while (str[i] == '0')
+	while (str[i] == '0' && i < ft_strlen((char *)str))
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + str[i] - 48;
 		i++;
 	}
-	// printf("result = %ld\n", res * sign);
 	return (res * sign);
 }
 
@@ -72,7 +71,15 @@ t_time	get_current_time_ms(void)
 	time_t tv_sec;   // seconds since Jan 1, 1970 (the Unix epoch)
 	suseconds_t tv_usec; // microseconds (millionths of a second) */
 }
-
+size_t ft_strlen(char *str)
+{
+	size_t i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
 size_t	get_current_time(void)
 {
 	struct timeval	time;

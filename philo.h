@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/23 17:15:32 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:14:57 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_philo
 }							t_philos;
 
 long						ft_atol(const char *str);
-int							ft_strlen(char *str);
+size_t							ft_strlen(char *str);
 int delivery_calculator(t_philos *philo);
 void						ft_putstr_fd(int fd, char *str);
 int							is_number(char *str);

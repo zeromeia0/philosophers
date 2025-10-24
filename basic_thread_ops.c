@@ -3,34 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/23 14:40:54 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:26:21 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int check_death(t_philos *philo)
-{
-	// crazy_print(philo);
-	if ((U_INT)get_current_time_ms() - (U_INT)philo->time_of_last_meal - (U_INT)philo->init->start_time > (U_INT)philo->init->time_to_die)
-		return (philo->pass_away_flag = 1, -1);
-	return (0);
-}
-
-void print_death(t_philos *philo, char *str) //FIX THIS SHIT AND MAKE PRINT MESSAGE WORK HERE
+/* void	print_message(t_philos *philo, char *str, int is_dead)
 {
 	t_time	now;
 	t_time	start;
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
 	pthread_mutex_lock(&philo->lock_to_message);
-	if (should_stop(philo) == 1)
-		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
-		str);
+	if (should_stop(philo) == 0 && is_dead == 0)
+		// printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
+		// str);
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+	if (is_dead == 1)
+	{
+		// printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
+		// str);
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+	}
 	pthread_mutex_unlock(&philo->lock_to_message);
+} */
+
+int check_death(t_philos *philo)
+{
+	if ((U_INT)get_current_time_ms() - (U_INT)philo->time_of_last_meal - (U_INT)philo->init->start_time > (U_INT)philo->init->time_to_die)
+		return (philo->pass_away_flag = 1, -1);
+	return (0);
 }
 
 void	print_message(t_philos *philo, char *str, int is_dead)
@@ -41,13 +47,9 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 	now = get_current_time_ms() - start;
 	pthread_mutex_lock(&philo->lock_to_message);
 	if (should_stop(philo) == 0 && is_dead == 0)
-		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
-		str);
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
 	if (is_dead == 1)
-	{
-		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
-		str);
-	}
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->lock_to_message);
 }
 
