@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/22 10:16:13 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/25 09:06:13 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	print_philo_values(t_philos *philo, char **argv)
 {
 	if (philo && philo->init)
 	{
-		init_values(philo, argv);
 		printf("Number of philo = %d\n", (int)philo->init->number_of_philo);
 		printf("Time to die = %d\n", (int)philo->init->time_to_die);
 		printf("Time to eat = %d\n", (int)philo->init->time_to_eat);

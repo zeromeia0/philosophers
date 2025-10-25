@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/24 23:37:48 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/25 09:10:08 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	args_checker(int argc, char *argv[])
 			return (write(2, "Arguments should be numbers only\n", 34), 1);
 		i++;
 	}
-	
+	if (argv[5])
+		i = ft_atol(argv[5]);
+	if (i == 0)
+		return (1);
 	i = ft_atol(argv[1]);
 	if (i == 0)
 		return (1);
@@ -83,11 +86,10 @@ int	main(int argc, char *argv[])
 	for (int i = 0; i < number_of_philo; i++)
 	{
 		philo[i].id = i;
-		// printf("ID CREATION: %d\n", philo[i].id);
 		philo[i].init = init;
 	}
+	init_values(philo, argv);
 	print_philo_values(philo, argv);
-	
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
 	monitor(philo);

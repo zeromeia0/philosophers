@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/24 23:43:08 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/25 08:59:25 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	philo_sleeping(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	print_message(philo, CLR_BLUE "Is sleeping\n" CLR_RESET, 0);
+	print_message(philo, CLR_BLUE "is sleeping\n" CLR_RESET, 0);
 	ft_usleep((size_t)philo->init->time_to_sleep);
 	return (0);
 }
@@ -52,7 +52,7 @@ int	philo_thinking(t_philos *philo)
 	if (check_death(philo) != 0)
 		return (-1);
 	ft_usleep((int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep);
-	print_message(philo, CLR_MAGENTA "Is thinking\n" CLR_RESET, 0);
+	print_message(philo, CLR_MAGENTA "is thinking\n" CLR_RESET, 0);
 	return (0);
 }
 
@@ -73,7 +73,7 @@ int	philo_eating(t_philos *philo)
 	print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
 	pthread_mutex_lock(philo->right_fork);
 	print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
-	print_message(philo, CLR_YELLOW "Is eating\n" CLR_RESET, 0);
+	print_message(philo, CLR_YELLOW "is eating\n" CLR_RESET, 0);
 	philo->init->food_counter++;
 	// printf("\n====Food counter: %d====\n", philo->init->food_counter);
 	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;

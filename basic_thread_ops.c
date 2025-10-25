@@ -6,13 +6,13 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/24 23:42:15 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/25 08:58:22 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_message(t_philos *philo, char *str, int is_dead)
+/* void	print_message(t_philos *philo, char *str, int is_dead)
 {
 	t_time	now;
 	t_time	start;
@@ -28,7 +28,7 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 		str);
 	}
 	pthread_mutex_unlock(&philo->lock_to_message);
-}
+} */
 
 int check_death(t_philos *philo)
 {
@@ -37,19 +37,19 @@ int check_death(t_philos *philo)
 	return (0);
 }
 
-// void	print_message(t_philos *philo, char *str, int is_dead)
-// {
-// 	t_time	now;
-// 	t_time	start;
-// 	start = philo->init->start_time;
-// 	now = get_current_time_ms() - start;
-// 	pthread_mutex_lock(&philo->lock_to_message);
-// 	if (should_stop(philo) == 0 && is_dead == 0)
-// 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
-// 	if (is_dead == 1)
-// 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
-// 	pthread_mutex_unlock(&philo->lock_to_message);
-// }
+void	print_message(t_philos *philo, char *str, int is_dead)
+{
+	t_time	now;
+	t_time	start;
+	start = philo->init->start_time;
+	now = get_current_time_ms() - start;
+	pthread_mutex_lock(&philo->lock_to_message);
+	if (should_stop(philo) == 0 && is_dead == 0)
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+	if (is_dead == 1)
+		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+	pthread_mutex_unlock(&philo->lock_to_message);
+}
 
 int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 		t_philos *philo)
