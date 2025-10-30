@@ -6,12 +6,13 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 14:18:13 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 15:57:44 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <bits/pthreadtypes.h>
+#include <pthread.h>
 
 void	init_heleper(t_philos *philo, char **argv)
 {
@@ -26,6 +27,7 @@ void	init_heleper(t_philos *philo, char **argv)
 	philo->init->start_time = get_current_time_ms();
 	philo->init->food_counter = 0;
 	philo->init->stop_simulation = 0;
+	pthread_mutex_init(&philo->init->stop_lock, NULL);
 }
 
 void	init_values(t_philos *philo, char **argv)

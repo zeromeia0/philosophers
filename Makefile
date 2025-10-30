@@ -6,7 +6,7 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/30 14:10:59 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/30 15:50:32 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRC = $(SRCDIR)/philo.c \
 OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -g -pthread
-CFLAGS = -g -pthread 
+# CFLAGS = -Wall -o0 -Wextra -Werror -g -pthread
+CFLAGS = -g -o0 -pthread 
 
 
 all: $(NAME)

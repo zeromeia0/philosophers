@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 11:33:23 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 16:33:47 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,22 @@ int	main(int argc, char *argv[])
 	}
 	init_values(philo, argv);
 	print_philo_values(philo, argv);
-	printf("pass awasy flag = %d\n", philo->pass_away_flag);
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
 	monitor(philo);
 	printf("====exiting====\n");
-	printf("pass awasy flag = %d\n", philo->pass_away_flag);
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
 	// printf("FINISHED ACIONS\n");
 	printf("Number of philos: %s\n", argv[1]);
 	printf("TImes eaten = %u\n", (U_INT)philo->init->food_counter);
+	free(init->general_forks);
 	if (init)
 		free(init);
-	// if (philo)
-		// free(philo);
+	if (philo)
+		free(philo);
+	if (threads)
+		free(threads);
 	// free(main_philo->left_fork);
 	// free(main_philo->right_fork);
 	return (0);

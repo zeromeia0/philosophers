@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 10:55:39 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 16:29:00 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 	t_time	start;
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
+	pthread_mutex_init(&philo->lock_to_message, NULL);
 	pthread_mutex_lock(&philo->lock_to_message);
 	if (should_stop(philo) == 0 && is_dead == 0)
 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
@@ -63,7 +64,6 @@ int	create_threads(int number_of_philos, pthread_t th[number_of_philos],
 		if (pthread_create(&th[i], NULL, &routine_loop, &philo[i]) != 0)
 			return (perror("Fracassado\n"), 1);
 	}
-	// printf("Finished giving birth to %d philosophers\n", i);
 	return (0);
 }
 
