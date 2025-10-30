@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/25 08:59:25 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 10:59:58 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	philo_thinking(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
-	ft_usleep((int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep);
+	if ((int)philo->init->time_to_eat >= (int)philo->init->time_to_sleep)
+		ft_usleep((int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep);
+	else
+	 	ft_usleep((int)philo->init->time_to_sleep - (int)philo->init->time_to_eat);
 	print_message(philo, CLR_MAGENTA "is thinking\n" CLR_RESET, 0);
 	return (0);
 }

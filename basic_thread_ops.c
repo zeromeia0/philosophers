@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/25 08:58:22 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 10:55:39 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 	int i;
 
 	// i = 0;
+	printf("join threads\n");
 	for (i = 0; i < number_of_philos; i++)
 	{
 		if (pthread_join(th[i], NULL) != 0)
 			return (printf("Couldn't join the threads\n"), 1);
+		printf("joined\n");
 	}
 	printf("Finished joining threads\n");
 	return (0);

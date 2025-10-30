@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/24 23:15:33 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 10:57:28 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ size_t	get_current_time(void)
 
 void ft_usleep(size_t milliseconds)
 {
+	if (milliseconds < 0)
+		milliseconds = 100;
     usleep(milliseconds * 1000);
 }
