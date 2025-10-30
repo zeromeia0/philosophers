@@ -6,7 +6,7 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/30 15:50:32 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/30 17:30:15 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ b: re
 
 val: re
 	@valgrind --leak-check=full ./philo 6 40 200 500 400
+
+hel: re
+	valgrind --tool=helgrind ./philo 2 800 200 200
 
 ll: re
 	lldb ./philo 6 40 200 500 400
