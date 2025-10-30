@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/10/30 11:35:09 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 14:16:55 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	philo_eating(t_philos *philo)
 	print_message(philo, CLR_YELLOW "is eating\n" CLR_RESET, 0);
 	philo->init->food_counter++;
 	// printf("\n====Food counter: %d====\n", philo->init->food_counter);
-	philo->time_of_last_meal = (int)get_current_time() - philo->init->start_time;
+	philo->time_of_last_meal = (int)get_current_time_ms() - philo->init->start_time;
 	ft_usleep(philo->init->time_to_eat, philo);
 	pthread_mutex_unlock(philo->right_fork);
 	print_message(philo, "Dropped right fork\n", 0);

@@ -6,7 +6,7 @@
 #    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/24 23:24:20 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/10/30 14:10:59 by vvazzs           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,4 +58,10 @@ ll: re
 
 gdb: re
 	gdb ./philo 6 40 200 500 400
+
+norm:
+	@norminette $(shell find . -type f \( -name "*.c" -o -name "*.h" \)) \
+	| awk '/c: Error/ { c++; if (c % 2 == 1) printf "\033[1;35m%s\033[0m\n", $$0; else printf "\033[1;36m%s\033[0m\n", $$0 }'
+	@echo "Amount of errors: " && norminette $(shell find . -type f \( -name "*.c" -o -name "*.h" \)) | grep "Error" | wc -l
+
 .PHONY: all clean fclean re a b val

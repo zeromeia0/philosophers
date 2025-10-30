@@ -6,13 +6,12 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 14:01:12 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 14:18:37 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
-
 
 long	ft_atol(const char *str)
 {
@@ -62,42 +61,39 @@ int	is_number(char *str)
 t_time	get_current_time_ms(void)
 {
 	struct timeval	tv;
-	
-	gettimeofday(&tv, NULL);                                    
-	return (t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL);
-	/*  milliseconds */
-	/* 	1000ULL -> converts to miliss
-	tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
-	time_t tv_sec;   // seconds since Jan 1, 1970 (the Unix epoch)
-	suseconds_t tv_usec; // microseconds (millionths of a second) */
+
+	gettimeofday(&tv, NULL);
+	return ((t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL));
 }
-size_t ft_strlen(char *str)
+/* 
+milliseconds
+1000ULL -> converts to miliss
+tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
+time_t tv_sec;   // seconds from 01 jan 1970 
+suseconds_t tv_usec; // microseconds (millionths of a second)
+*/
+
+size_t	ft_strlen(char *str)
 {
-	size_t i = 0;
+	size_t	i;
+
+	i = 0;
 	if (!str)
 		return (0);
 	while (str[i])
 		i++;
 	return (i);
 }
-size_t	get_current_time(void)
-{
-	struct timeval	time;
 
-	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-		// search about this right here
-}
-
-void ft_usleep(size_t milliseconds, t_philos *philo)
+void	ft_usleep(size_t milliseconds, t_philos *philo)
 {
-	t_time start = get_current_time_ms();
+	t_time	start;
+
+	start = get_current_time_ms();
 	while ((get_current_time_ms() - start) < milliseconds)
 	{
 		if (should_stop(philo))
-			break;
+			break ;
 		usleep(500);
 	}
 }
-
