@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 16:33:47 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 16:58:46 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char *argv[])
 	number_of_philo = ft_atol(argv[1]);
 	if (!(init = malloc(sizeof(t_init))))
 		return (printf("Couldn't load init\n"), -1);
-	if (!(philo = malloc(sizeof(t_philos) * number_of_philo)))
+	if (!(philo = calloc(sizeof(t_philos) * number_of_philo, 1)))
 		return (printf("Couldn't load main struct\n"), -1);
 	if (!(threads = malloc(sizeof(pthread_t) * number_of_philo)))
 		return (printf("Couldn't allocate threads\n"), -1);
