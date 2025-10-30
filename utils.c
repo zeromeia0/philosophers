@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 10:57:28 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 11:35:59 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,12 @@ size_t	get_current_time(void)
 		// search about this right here
 }
 
-void ft_usleep(size_t milliseconds)
+void ft_usleep(size_t milliseconds, t_philos *philo)
 {
-	if (milliseconds < 0)
-		milliseconds = 100;
-    usleep(milliseconds * 1000);
+	while (philo->pass_away_flag == 0)
+	{
+		usleep(milliseconds * 1000);
+		break;
+	}
+	
 }

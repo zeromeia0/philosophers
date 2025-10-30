@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/25 09:06:13 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/30 11:27:37 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	init_values(t_philos *philo, char **argv)
 		philo[i].right_fork = &philo->init->general_forks[(i + 1) % philo->init->number_of_philo];
 	}
 }
-
 
 void	print_philo_values(t_philos *philo, char **argv)
 {
