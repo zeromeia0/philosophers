@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/31 17:54:04 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/31 23:56:38 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ int	args_checker(int argc, char *argv[])
 		i++;
 	}
 	if (argv[5])
+	{
+		if (is_number(argv[5]) != 0)
+			return (write(2, INVALID, 19), 1);
+		if (argv[5][0] == '-' && argv[5][0] == '\0' || argv[5][0] == '+' && argv[5][0] == '\0')
+			return (write(2, INVALID, 19), 1);
 		i = ft_atol(argv[5]);
-	if (i <= 0)
-		return (1);
+		if (i <= 0)
+			return (1);
+	}
 	i = ft_atol(argv[1]);
 	if (i == 0)
 		return (1);
