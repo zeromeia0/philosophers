@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 14:18:37 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/31 16:53:29 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,19 @@ int	is_number(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (1);
+	if (str[0] == '+')
+		i++;
 	while (str[i])
 	{
-		if (str[0] == '+')
-			i++;
 		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (1);
 		i++;
 	}
 	return (0);
 }
+
 
 t_time	get_current_time_ms(void)
 {

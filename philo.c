@@ -6,29 +6,30 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/30 16:58:46 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/10/31 17:54:04 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#define INVALID "Invalid arguments\n"
 
 int	args_checker(int argc, char *argv[])
 {
 	int i = 1;
 	if (argc < 5 || argc > 6)
-		return (printf("Invalid number of args\n"), 1);
-	while (i < argc - 1)
+		return (write(2, INVALID, 19), 1);
+	while (i <= 4)
 	{
 		long check = ft_atol(argv[i]);
 		if (check <= 0)
-			return (write(2, "Invalid arguments\n", 19), 1);
+			return (write(2, INVALID, 19), 1);
 		if (is_number(argv[i]) != 0)
-			return (write(2, "Arguments should be numbers only\n", 34), 1);
+			return (write(2, INVALID, 19), 1);
 		i++;
 	}
 	if (argv[5])
 		i = ft_atol(argv[5]);
-	if (i == 0)
+	if (i <= 0)
 		return (1);
 	i = ft_atol(argv[1]);
 	if (i == 0)
