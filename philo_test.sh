@@ -388,68 +388,391 @@ fi
 # ##########################
 # # TESTING WITH ZEROS
 # ##########################
-# echo "testing ./philo 000002 410 200 200"; ./philo 000002 410 200 200
-# echo "testing ./philo 2 00000410 200 200"; ./philo 2 00000410 200 200
-# echo "testing ./philo 2 410 000000200 200"; ./philo 2 410 000000200 200
-# echo "testing ./philo 2 410 200 00000000000200"; ./philo 2 410 200 00000000000200
-# echo "testing ./philo 02 00410 200 200"; ./philo 02 00410 200 200
-# echo "testing ./philo 02 00410 00200 000200"; ./philo 02 00410 00200 000200
-# echo "testing ./philo 000002 0410 200 00000200"; ./philo 000002 0410 200 00000200
-# echo "testing ./philo 2 0000410 200 00000200"; ./philo 2 0000410 200 00000200
+echo "testing ./philo 000002 410 200 200"
+if timeout 0.1s ./philo 000002 410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 00000410 200 200"
+if timeout 0.1s ./philo 2 00000410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 410 000000200 200"
+if timeout 0.1s ./philo 2 410 000000200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 410 200 00000000000200"
+if timeout 0.1s ./philo 2 410 200 00000000000200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 02 00410 200 200"
+if timeout 0.1s ./philo 02 00410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 02 00410 00200 000200"
+if timeout 0.1s ./philo 02 00410 00200 000200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 000002 0410 200 00000200"
+if timeout 0.1s ./philo 000002 0410 200 00000200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 0000410 200 00000200"
+if timeout 0.1s ./philo 2 0000410 200 00000200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
 
 # ##########################
 # # TESTING WITH '+' VALUES
 # ##########################
-# echo "testing ./philo +2 410 200 200"; ./philo +2 410 200 200
-# echo "testing ./philo 2 +410 200 200"; ./philo 2 +410 200 200
-# echo "testing ./philo 2 410 +200 200"; ./philo 2 410 +200 200
-# echo "testing ./philo 2 410 200 +200"; ./philo 2 410 200 +200
+echo "testing ./philo +2 410 200 200"
+if timeout 0.1s ./philo +2 410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 +410 200 200"
+if timeout 0.1s ./philo 2 +410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 410 +200 200"
+if timeout 0.1s ./philo 2 410 +200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 2 410 200 +200"
+if timeout 0.1s ./philo 2 410 200 +200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+# ##########################
+# # TESTING WITH 2'+' VALUES
+# ##########################
+echo "testing ./philo ++2 410 200 200"
+if timeout 0.1s ./philo ++2 410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mok\033[0m"
+else
+    echo -e "\033[1;32mko\033[0m"
+fi
+
+echo "testing ./philo 2 ++410 200 200"
+if timeout 0.1s ./philo 2 ++410 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mok\033[0m"
+else
+    echo -e "\033[1;32mko\033[0m"
+fi
+
+echo "testing ./philo 2 410 ++200 200"
+if timeout 0.1s ./philo 2 410 ++200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mok\033[0m"
+else
+    echo -e "\033[1;32mko\033[0m"
+fi
+
+echo "testing ./philo 2 410 200 ++200"
+if timeout 0.1s ./philo 2 410 200 ++200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mok\033[0m"
+else
+    echo -e "\033[1;32mko\033[0m"
+fi
 
 # ##########################
 # # TESTING QUANTITY OF ARGUMENTS
 # ##########################
-# echo "testing ./philo"; ./philo
-# echo "testing ./philo 2"; ./philo 2
-# echo "testing ./philo 2 410"; ./philo 2 410
-# echo "testing ./philo 2 410 200"; ./philo 2 410 200
-# echo "testing ./philo 2 410 200 200 200"; ./philo 2 410 200 200 200
-# echo "testing ./philo 2 410 200 200 200 200"; ./philo 2 410 200 200 200 200
+echo "testing ./philo"
+if timeout 0.1s ./philo 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"   # should print ok because it is invalid
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 2"
+if timeout 0.1s ./philo 2 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"   # invalid → ok
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 2 410"
+if timeout 0.1s ./philo 2 410 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"   # invalid → ok
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 2 410 200"
+if timeout 0.1s ./philo 2 410 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"   # invalid → ok
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 2 410 200 200 200"
+if timeout 0.1s ./philo 2 410 200 200 200 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"   # valid → ko if invalid found
+else
+    echo -e "\033[1;32mok\033[0m"   # valid → ok
+fi
+
 
 # ##########################
 # #TESTING WITH MAXIUM TIMES TO EAT ONLY ZERO
 # ##########################
-# echo "testing ./philo 0 0 0 0 0"; ./philo 0 0 0 0 0
-# echo "testing ./philo 0 0 0 0 1"; ./philo 0 0 0 0 1
-# echo "testing ./philo 0 0 0 1 0"; ./philo 0 0 0 1 0
-# echo "testing ./philo 0 0 0 1 1"; ./philo 0 0 0 1 1
-# echo "testing ./philo 0 0 1 0 0"; ./philo 0 0 1 0 0
-# echo "testing ./philo 0 0 1 0 1"; ./philo 0 0 1 0 1
-# echo "testing ./philo 0 0 1 1 0"; ./philo 0 0 1 1 0
-# echo "testing ./philo 0 0 1 1 1"; ./philo 0 0 1 1 1
-# echo "testing ./philo 0 1 0 0 0"; ./philo 0 1 0 0 0
-# echo "testing ./philo 0 1 0 0 1"; ./philo 0 1 0 0 1
-# echo "testing ./philo 0 1 0 1 0"; ./philo 0 1 0 1 0
-# echo "testing ./philo 0 1 0 1 1"; ./philo 0 1 0 1 1
-# echo "testing ./philo 0 1 1 0 0"; ./philo 0 1 1 0 0
-# echo "testing ./philo 0 1 1 0 1"; ./philo 0 1 1 0 1
-# echo "testing ./philo 0 1 1 1 0"; ./philo 0 1 1 1 0
-# echo "testing ./philo 0 1 1 1 1"; ./philo 0 1 1 1 1
-# echo "testing ./philo 1 0 0 0 0"; ./philo 1 0 0 0 0
-# echo "testing ./philo 1 0 0 0 1"; ./philo 1 0 0 0 1
-# echo "testing ./philo 1 0 0 1 0"; ./philo 1 0 0 1 0
-# echo "testing ./philo 1 0 0 1 1"; ./philo 1 0 0 1 1
-# echo "testing ./philo 1 0 1 0 0"; ./philo 1 0 1 0 0
-# echo "testing ./philo 1 0 1 0 1"; ./philo 1 0 1 0 1
-# echo "testing ./philo 1 0 1 1 0"; ./philo 1 0 1 1 0
-# echo "testing ./philo 1 0 1 1 1"; ./philo 1 0 1 1 1
-# echo "testing ./philo 1 1 0 0 0"; ./philo 1 1 0 0 0
-# echo "testing ./philo 1 1 0 0 1"; ./philo 1 1 0 0 1
-# echo "testing ./philo 1 1 0 1 0"; ./philo 1 1 0 1 0
-# echo "testing ./philo 1 1 0 1 1"; ./philo 1 1 0 1 1
-# echo "testing ./philo 1 1 1 0 0"; ./philo 1 1 1 0 0
-# echo "testing ./philo 1 1 1 0 1"; ./philo 1 1 1 0 1
-# echo "testing ./philo 1 1 1 1 0"; ./philo 1 1 1 1 0
-# echo "testing ./philo 1 1 1 1 1"; ./philo 1 1 1 1 1
+echo "testing ./philo 0 0 0 0 0"
+if timeout 0.1s ./philo 0 0 0 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"   # invalid → ok
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 0 0 1"
+if timeout 0.1s ./philo 0 0 0 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 0 1 0"
+if timeout 0.1s ./philo 0 0 0 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 0 1 1"
+if timeout 0.1s ./philo 0 0 0 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 1 0 0"
+if timeout 0.1s ./philo 0 0 1 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 1 0 1"
+if timeout 0.1s ./philo 0 0 1 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 1 1 0"
+if timeout 0.1s ./philo 0 0 1 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 0 1 1 1"
+if timeout 0.1s ./philo 0 0 1 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 0 0 0"
+if timeout 0.1s ./philo 0 1 0 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 0 0 1"
+if timeout 0.1s ./philo 0 1 0 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 0 1 0"
+if timeout 0.1s ./philo 0 1 0 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 0 1 1"
+if timeout 0.1s ./philo 0 1 0 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 1 0 0"
+if timeout 0.1s ./philo 0 1 1 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 1 0 1"
+if timeout 0.1s ./philo 0 1 1 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 1 1 0"
+if timeout 0.1s ./philo 0 1 1 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 0 1 1 1 1"
+if timeout 0.1s ./philo 0 1 1 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 0 0 0"
+if timeout 0.1s ./philo 1 0 0 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 0 0 1"
+if timeout 0.1s ./philo 1 0 0 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 0 1 0"
+if timeout 0.1s ./philo 1 0 0 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 0 1 1"
+if timeout 0.1s ./philo 1 0 0 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 1 0 0"
+if timeout 0.1s ./philo 1 0 1 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 1 0 1"
+if timeout 0.1s ./philo 1 0 1 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 1 1 0"
+if timeout 0.1s ./philo 1 0 1 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 0 1 1 1"
+if timeout 0.1s ./philo 1 0 1 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mok\033[0m"   # valid → ok
+else
+    echo -e "\033[1;32mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 0 0 0"
+if timeout 0.1s ./philo 1 1 0 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 0 0 1"
+if timeout 0.1s ./philo 1 1 0 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 0 1 0"
+if timeout 0.1s ./philo 1 1 0 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 0 1 1"
+if timeout 0.1s ./philo 1 1 0 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 1 0 0"
+if timeout 0.1s ./philo 1 1 1 0 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 1 0 1"
+if timeout 0.1s ./philo 1 1 1 0 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;32mok\033[0m"
+else
+    echo -e "\033[1;31mko\033[0m"
+fi
+
+echo "testing ./philo 1 1 1 1 0"
+if timeout 0.1s ./philo 1 1 1 1 0 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"   # valid → ok
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
+echo "testing ./philo 1 1 1 1 1"
+if timeout 0.1s ./philo 1 1 1 1 1 2>&1 | grep -q "Invalid arguments"; then
+    echo -e "\033[1;31mko\033[0m"   # valid → ok
+else
+    echo -e "\033[1;32mok\033[0m"
+fi
+
 
 # ##########################
 # #TESTING WITH MAXIUM TIMES TO EAT VALID PHILO NUMBER
