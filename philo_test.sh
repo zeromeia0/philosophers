@@ -104,7 +104,7 @@ fi
 
 echo "testing ./philo 1 1 1 0"
 if timeout 0.1s ./philo 1 1 1 0 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
@@ -122,49 +122,49 @@ fi
 # ##########################
 echo "testing ./philo 2 0 0 0"
 if timeout 0.1s ./philo 2 0 0 0 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 0 0 1"
 if timeout 0.1s ./philo 2 0 0 1 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 0 1 0"
 if timeout 0.1s ./philo 2 0 1 0 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 0 1 1"
 if timeout 0.1s ./philo 2 0 1 1 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 1 0 0"
 if timeout 0.1s ./philo 2 1 0 0 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 1 0 1"
 if timeout 0.1s ./philo 2 1 0 1 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 1 1 0"
 if timeout 0.1s ./philo 2 1 1 0 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
@@ -481,28 +481,28 @@ fi
 # ##########################
 echo "testing ./philo ++2 410 200 200"
 if timeout 0.1s ./philo ++2 410 200 200 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 ++410 200 200"
 if timeout 0.1s ./philo 2 ++410 200 200 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 410 ++200 200"
 if timeout 0.1s ./philo 2 410 ++200 200 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
 
 echo "testing ./philo 2 410 200 ++200"
 if timeout 0.1s ./philo 2 410 200 ++200 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 else
     echo -e "\033[1;32mko\033[0m"
 fi
@@ -712,7 +712,7 @@ fi
 
 echo "testing ./philo 1 0 1 1 1"
 if timeout 0.1s ./philo 1 0 1 1 1 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"   # valid → ok
+    echo -e "\033[1;32mok\033[0m"   # valid → ok
 else
     echo -e "\033[1;32mko\033[0m"
 fi
@@ -880,7 +880,7 @@ echo "testing ./philo 2 1 1 1 0"
 if timeout 0.1s ./philo 2 1 1 1 0 2>&1 | grep -q "Invalid arguments"; then
     echo -e "\033[1;32mko\033[0m"
 else
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 fi
 
 echo "testing ./philo 2 1 1 1 1"
@@ -1105,7 +1105,7 @@ fi
 
 echo "testing ./philo 2 410 200 200 -1"
 if timeout 0.1s ./philo 2 410 200 200 -1 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;31mok\033[0m"   # valid → ok
+    echo -e "\033[1;32mok\033[0m"   # valid → ok
 else
     echo -e "\033[1;32mko\033[0m"
 fi
@@ -1306,10 +1306,11 @@ fi
 
 echo "testing ./philo 2 410 200 200 +"
 if timeout 0.1s ./philo 2 410 200 200 + 2>&1 | grep -q "Invalid arguments"; then
-    echo -e "\033[1;32mko\033[0m"
+    echo -e "\033[1;31mko\033[0m"
 else
-    echo -e "\033[1;31mok\033[0m"
+    echo -e "\033[1;32mok\033[0m"
 fi
+
 
 echo "testing ./philo 2 410 200 200 -"
 if timeout 0.1s ./philo 2 410 200 200 - 2>&1 | grep -q "Invalid arguments"; then
