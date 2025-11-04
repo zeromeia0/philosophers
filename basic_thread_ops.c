@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/01 00:10:48 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/04 13:19:06 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 {
 	t_time	now;
 	t_time	start;
+	pthread_mutex_lock(&philo->init->absolute_lock);
 	start = philo->init->start_time;
 	now = get_current_time_ms() - start;
-	pthread_mutex_init(&philo->lock_to_message, NULL);
 	pthread_mutex_lock(&philo->lock_to_message);
 	if (should_stop(philo) == 0 && is_dead == 0)
 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
 	if (is_dead == 1)
 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->lock_to_message);
+	pthread_mutex_unlock(&philo->init->absolute_lock);	
+
 }
 
 int	create_threads(int number_of_philos, pthread_t th[number_of_philos],

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/01 00:11:15 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/04 13:04:25 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	main(int argc, char *argv[])
 	// printf("FINISHED ACIONS\n");
 	// printf("Number of philos: %s\n", argv[1]);
 	// printf("TImes eaten = %u\n", (U_INT)philo->init->food_counter);
+	pthread_mutex_destroy(&philo->lock_to_message);
 	free(init->general_forks);
 	if (init)
 		free(init);
