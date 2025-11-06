@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 23:12:32 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 23:35:20 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void monitor(t_philos *philo)
                 philo->init->stop_simulation = 1;
                 pthread_mutex_unlock(&philo->init->stop_lock);
                 pthread_mutex_unlock(&philo->init->absolute_lock);
+				printf("Dead philo = %u\n", philo[i].id + 1);
+				printf("Current time = %u\n", (U_INT)(get_current_time_ms() - philo->init->start_time));
+				printf("Time of last meal = %u\n", (U_INT)philo[i].time_of_last_meal);
+				printf("Result = %u\n", (U_INT)((get_current_time_ms() - philo->init->start_time) - philo[i].time_of_last_meal));
                 return;
             }
         }
