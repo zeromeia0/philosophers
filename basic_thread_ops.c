@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 13:39:22 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 23:08:35 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,13 @@
 int check_death(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->init->death_lock);
-	if ((U_INT)get_current_time_ms() - (U_INT)philo->time_of_last_meal - (U_INT)philo->init->start_time > (U_INT)philo->init->time_to_die)
-		return (pthread_mutex_unlock(&philo->init->death_lock), philo->pass_away_flag = 1, -1);
+	U_INT now = get_current_time_ms() - philo->init->start_time;
+	if (now - philo->time_of_last_meal > philo->init->time_to_die)
+	{
+		philo->pass_away_flag = 1;
+		pthread_mutex_unlock(&philo->init->death_lock);
+		return (-1);
+	}
 	pthread_mutex_unlock(&philo->init->death_lock);
 	return (0);
 }

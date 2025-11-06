@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 15:10:19 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 23:12:32 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,22 @@ void monitor(t_philos *philo)
     }
 }
 
+void handle_early_death_case_all(t_philos *philo)
+{
+	int i = -1;
+	print_message(&philo[0], CLR_GREEN "has taken a fork\n" CLR_RESET, 0);
+	if (philo->init->number_of_philo > 1)
+		print_message(&philo[0], CLR_GREEN "has taken a fork\n" CLR_RESET, 0);
+	print_message(&philo[0], CLR_YELLOW "is eating\n" CLR_RESET, 0);
+	ft_usleep(philo->init->time_to_die, &philo[0]);
+	pthread_mutex_lock(&philo->init->absolute_lock);
+	print_message(&philo[0], CLR_RED "died\n" CLR_RESET, 1);
+	pthread_mutex_lock(&philo->init->stop_lock);
+	philo->init->stop_simulation = 1;
+	pthread_mutex_unlock(&philo->init->stop_lock);
+	pthread_mutex_unlock(&philo->init->absolute_lock);
+}
+
 int	main(int argc, char *argv[])
 {
 	int			number_of_philo;
@@ -117,7 +133,8 @@ int	main(int argc, char *argv[])
 		philo[i].init = init;
 	}
 	init_values(philo, argv);
-	// print_philo_values(philo, argv);
+	if (philo->init->time_to_die < philo->init->time_to_eat || philo->init->time_to_die < philo->init->time_to_sleep)
+		return (handle_early_death_case_all(philo), 1);
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
 	monitor(philo);
