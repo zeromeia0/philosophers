@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 14:22:55 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 15:10:19 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,37 @@ int	delivery_calculator(t_philos *philo)
 	return (0);
 }
 
-void	monitor(t_philos *philo)
+void monitor(t_philos *philo)
 {
-	while (1)
-	{
-		if (check_death(philo) == -1)
-		{
-			pthread_mutex_lock(&philo->init->absolute_lock);
-			print_message(philo, CLR_RED "died\n" CLR_RESET, 1);
-			pthread_mutex_lock(&philo->init->stop_lock);
-			philo->init->stop_simulation = 1;
-			pthread_mutex_unlock(&philo->init->stop_lock);
-			pthread_mutex_unlock(&philo->init->absolute_lock);
-			break ;
-		}
-		if (delivery_calculator(philo) != 0)
-		{
-			pthread_mutex_lock(&philo->init->absolute_lock);
-			pthread_mutex_lock(&philo->init->stop_lock);
-			philo->init->stop_simulation = 1;
-			pthread_mutex_unlock(&philo->init->stop_lock);
-			pthread_mutex_unlock(&philo->init->absolute_lock);
-			break ;
-		}
-	}
+    int i;
+    
+    while (1)
+    {
+        i = -1;
+        while (++i < philo->init->number_of_philo)
+        {
+            if (check_death(&philo[i]) == -1)
+            {
+                pthread_mutex_lock(&philo->init->absolute_lock);
+                print_message(&philo[i], CLR_RED "died\n" CLR_RESET, 1);
+                pthread_mutex_lock(&philo->init->stop_lock);
+                philo->init->stop_simulation = 1;
+                pthread_mutex_unlock(&philo->init->stop_lock);
+                pthread_mutex_unlock(&philo->init->absolute_lock);
+                return;
+            }
+        }
+        if (delivery_calculator(philo) != 0)
+        {
+            pthread_mutex_lock(&philo->init->absolute_lock);
+            pthread_mutex_lock(&philo->init->stop_lock);
+            philo->init->stop_simulation = 1;
+            pthread_mutex_unlock(&philo->init->stop_lock);
+            pthread_mutex_unlock(&philo->init->absolute_lock);
+            break;
+        }
+        usleep(1000); // Small delay to prevent busy waiting
+    }
 }
 
 int	main(int argc, char *argv[])
