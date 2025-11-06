@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/06 15:23:00 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 23:03:04 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	philo_eating(t_philos *philo)
 	philo->time_of_last_meal = get_current_time_ms() - philo->init->start_time;
 	pthread_mutex_unlock(&philo->init->death_lock);
 	pthread_mutex_unlock(&philo->init->absolute_lock);
+	ft_usleep(philo->init->time_to_eat, philo); //THE PROBLEM IS HERE
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-	ft_usleep(philo->init->time_to_eat, philo); //THE PROBLEM IS HERE
 	return (0);
 }
