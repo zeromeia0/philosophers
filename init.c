@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/04 13:10:35 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:38:04 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_heleper(t_philos *philo, char **argv)
 	philo->init->food_counter = 0;
 	philo->init->stop_simulation = 0;
 	pthread_mutex_init(&philo->init->stop_lock, NULL);
+	pthread_mutex_init(&philo->init->absolute_lock, NULL);
+	pthread_mutex_init(&philo->init->death_lock, NULL);
 }
 
 void	init_values(t_philos *philo, char **argv)
@@ -40,7 +42,6 @@ void	init_values(t_philos *philo, char **argv)
 	philo->init->general_forks = malloc(sizeof(pthread_mutex_t)
 			* philo->init->number_of_philo);
 	pthread_mutex_init(&philo->lock_to_message, NULL);
-	pthread_mutex_init(&philo->init->absolute_lock, NULL);
 	if (!philo->init->general_forks)
 		return ;
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/06 13:28:17 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 13:40:55 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void *routine_loop(void *arg)
 
 int	philo_sleeping(t_philos *philo)
 {
-	// pthread_mutex_lock(&philo->init->absolute_lock);
+	pthread_mutex_lock(&philo->init->absolute_lock);
 	if (check_death(philo) != 0)
-		return (/* pthread_mutex_unlock(&philo->init->absolute_lock), */ -1);
+		return (pthread_mutex_unlock(&philo->init->absolute_lock), -1);
 	print_message(philo, CLR_BLUE "is sleeping\n" CLR_RESET, 0);
-	// pthread_mutex_unlock(&philo->init->absolute_lock);
+	pthread_mutex_unlock(&philo->init->absolute_lock);
 	ft_usleep((size_t)philo->init->time_to_sleep, philo);
 	return (0);
 }
@@ -56,22 +56,12 @@ int	philo_sleeping(t_philos *philo)
 int	philo_thinking(t_philos *philo)
 {
 	bool	bigger;
-	int		gotta_sleep;
 
-	bigger = (int)philo->init->time_to_eat >= (int)philo->init->time_to_sleep;
+	pthread_mutex_lock(&philo->init->absolute_lock);
 	if (check_death(philo) != 0)
-		return (-1);
+		return (pthread_mutex_unlock(&philo->init->absolute_lock), -1);
 	print_message(philo, CLR_MAGENTA "is thinking\n" CLR_RESET, 0);
-	if (bigger)
-	{
-		gotta_sleep = (int)philo->init->time_to_eat -  (int)philo->init->time_to_sleep;
-		ft_usleep(gotta_sleep, philo);
-	}
-	else
-	{
-		gotta_sleep = (int)philo->init->time_to_sleep - (int)philo->init->time_to_eat;
-		ft_usleep(gotta_sleep, philo);
-	}
+	pthread_mutex_unlock(&philo->init->absolute_lock);
 	return (0);
 }
 
