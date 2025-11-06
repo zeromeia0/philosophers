@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 13:36:21 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 14:22:55 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ int	args_checker(int argc, char *argv[])
 
 int	delivery_calculator(t_philos *philo)
 {
+	pthread_mutex_lock(&philo->init->food_lock);
 	if (philo->init->food_counter == philo->init->minimum_eat_times
 		* philo->init->number_of_philo)
-		return (-1);
+		return (pthread_mutex_unlock(&philo->init->food_lock), -1);
+	pthread_mutex_unlock(&philo->init->food_lock);
 	return (0);
 }
 
@@ -66,18 +68,21 @@ void	monitor(t_philos *philo)
 	{
 		if (check_death(philo) == -1)
 		{
+			pthread_mutex_lock(&philo->init->absolute_lock);
 			print_message(philo, CLR_RED "died\n" CLR_RESET, 1);
 			pthread_mutex_lock(&philo->init->stop_lock);
 			philo->init->stop_simulation = 1;
 			pthread_mutex_unlock(&philo->init->stop_lock);
+			pthread_mutex_unlock(&philo->init->absolute_lock);
 			break ;
 		}
 		if (delivery_calculator(philo) != 0)
 		{
+			pthread_mutex_lock(&philo->init->absolute_lock);
 			pthread_mutex_lock(&philo->init->stop_lock);
 			philo->init->stop_simulation = 1;
 			pthread_mutex_unlock(&philo->init->stop_lock);
-			// printf("BARRIGA CHEIA\n");
+			pthread_mutex_unlock(&philo->init->absolute_lock);
 			break ;
 		}
 	}
@@ -112,9 +117,6 @@ int	main(int argc, char *argv[])
 	printf("====exiting====\n");
 	if (join_threads(number_of_philo, threads) != 0)
 		return (perror("Failure\n"), 1);
-	// printf("FINISHED ACIONS\n");
-	// printf("Number of philos: %s\n", argv[1]);
-	// printf("TImes eaten = %u\n", (U_INT)philo->init->food_counter);
 	pthread_mutex_destroy(&philo->init->absolute_lock);
 	pthread_mutex_destroy(&philo->lock_to_message);
 	free(init->general_forks);

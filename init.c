@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 13:38:04 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 14:23:17 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_heleper(t_philos *philo, char **argv)
 	pthread_mutex_init(&philo->init->stop_lock, NULL);
 	pthread_mutex_init(&philo->init->absolute_lock, NULL);
 	pthread_mutex_init(&philo->init->death_lock, NULL);
+	pthread_mutex_init(&philo->init->food_lock, NULL);
 }
 
 void	init_values(t_philos *philo, char **argv)
