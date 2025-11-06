@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/04 13:18:00 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:28:17 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,21 @@ int should_stop(t_philos *philo)
 void *routine_loop(void *arg)
 {
 	t_philos *philo;
+	bool should_do = true;
 	philo = (t_philos *)arg;
 	while (!should_stop(philo))
 	{
-	if (philo->id % 2 == 1)
-		ft_usleep(philo->init->time_to_eat / 2, philo);
-	if (philo_eating(philo) != 0)
-		break ;
-	if (philo_sleeping(philo) != 0)
-		break ;
-	if (philo_thinking(philo) != 0)
-		break ;
+		if (philo->id % 2 == 1 && should_do)
+		{
+			ft_usleep(philo->init->time_to_eat / 2, philo);
+			should_do = false;
+		}
+		if (philo_eating(philo) != 0)
+			break ;
+		if (philo_sleeping(philo) != 0)
+			break ;
+		if (philo_thinking(philo) != 0)
+			break ;
 	}
 	return (NULL);
 }

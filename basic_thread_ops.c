@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   basic_thread_ops.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/04 13:19:06 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:25:44 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/* void	print_message(t_philos *philo, char *str, int is_dead)
-{
-	t_time	now;
-	t_time	start;
-	start = philo->init->start_time;
-	now = get_current_time_ms() - start;
-	pthread_mutex_lock(&philo->lock_to_message);
-	if (should_stop(philo) == 0 && is_dead == 0)
-		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
-		str);
-	if (is_dead == 1)
-	{
-		printf("Time of day: %u | Philo id: %d %s", (U_INT)now, philo->id + 1,
-		str);
-	}
-	pthread_mutex_unlock(&philo->lock_to_message);
-} */
 
 int check_death(t_philos *philo)
 {
@@ -79,6 +61,5 @@ int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 		if (pthread_join(th[i], NULL) != 0)
 			return (printf("Couldn't join the threads\n"), 1);
 	}
-	// printf("Finished joining threads\n");
 	return (0);
 }
