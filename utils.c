@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/10/31 16:53:29 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 15:22:16 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,14 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_usleep(size_t milliseconds, t_philos *philo)
+void ft_usleep(t_time milliseconds, t_philos *philo)
 {
-	t_time	start;
-
-	start = get_current_time_ms();
-	while ((get_current_time_ms() - start) < milliseconds)
-	{
-		if (should_stop(philo))
-			break ;
-		usleep(500);
-	}
+    t_time start = get_current_time_ms();
+    while (get_current_time_ms() - start < milliseconds)
+    {
+        if (should_stop(philo))
+            break;
+        usleep(500);
+    }
 }
+

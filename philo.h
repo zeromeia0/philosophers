@@ -6,7 +6,7 @@
 /*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 14:24:03 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/06 15:22:27 by vvazzs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	philo_eating(t_philos *philo);
 int check_death(t_philos *philo);
 void *routine_loop(void *arg);
 t_time	get_current_time_ms(void);
-void ft_usleep(size_t milliseconds, t_philos *philo);
+void ft_usleep(t_time milliseconds, t_philos *philo);
 void crazy_print(t_philos *philo);
 int should_stop(t_philos *philo);
 void print_death(t_philos *philo, char *str);
