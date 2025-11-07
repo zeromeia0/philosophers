@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 14:18:18 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:20:27 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 	if (is_dead == 1)
 		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->init->print_lock);
-
 }
 
 int	create_threads(int number_of_philos, pthread_t th[number_of_philos],

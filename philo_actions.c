@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/07 14:17:43 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:21:19 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,23 @@ int	philo_thinking(t_philos *philo)
 	return (0);
 }
 
+
+void	release_forks(t_philos *philo)
+{
+	if (philo->id % 2 != 0)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+}
+
 int	philo_eating(t_philos *philo)
 {
-	
 	if (check_death(philo) != 0)
 		return (-1);
 	if (philo->init->number_of_philo == 1)
@@ -76,10 +90,20 @@ int	philo_eating(t_philos *philo)
 		ft_usleep(philo->init->time_to_die, philo);
 		return (1);
 	}
-	pthread_mutex_lock(philo->left_fork);
-	print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
-	pthread_mutex_lock(philo->right_fork);
-	print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
+	if (philo->id % 2 == 0)
+	{
+	    pthread_mutex_lock(philo->right_fork);
+	    print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
+	    pthread_mutex_lock(philo->left_fork);
+	    print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
+		pthread_mutex_lock(philo->right_fork);
+		print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
+	}
 	print_message(philo, CLR_YELLOW "is eating\n" CLR_RESET, 0);
 	pthread_mutex_lock(&philo->init->food_lock);
 	philo->init->food_counter++;
@@ -88,7 +112,6 @@ int	philo_eating(t_philos *philo)
 	philo->time_of_last_meal = get_current_time_ms() - philo->init->start_time;
 	pthread_mutex_unlock(&philo->init->death_lock);
 	ft_usleep(philo->init->time_to_eat, philo); //THE PROBLEM IS HERE
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
+	release_forks(philo);
 	return (0);
 }
