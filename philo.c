@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 23:35:20 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/07 13:56:09 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void monitor(t_philos *philo)
             pthread_mutex_unlock(&philo->init->absolute_lock);
             break;
         }
-        usleep(1000); // Small delay to prevent busy waiting
+        usleep(1000);
     }
 }
 

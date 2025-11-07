@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+         #
+#    By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/10/30 17:30:15 by vvazzs           ###   ########.fr        #
+#    Updated: 2025/11/07 14:16:06 by vivaz-ca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ val: re
 	@valgrind --leak-check=full ./philo 6 40 200 500 400
 
 hel: re
-	valgrind --tool=helgrind ./philo 2 800 200 200
+	valgrind --tool=helgrind ./philo 2 800 200 200 5
 
 ll: re
 	lldb ./philo 6 40 200 500 400

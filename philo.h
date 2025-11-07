@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 15:22:27 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/07 14:18:04 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_init_vars
 	pthread_mutex_t			*general_forks;
 	pthread_mutex_t			stop_lock;
 	pthread_mutex_t			food_lock;
+	pthread_mutex_t			print_lock;
 }							t_init;
 
 typedef struct s_philo

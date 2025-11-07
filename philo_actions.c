@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/06 23:03:04 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/07 14:17:43 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ int	philo_thinking(t_philos *philo)
 int	philo_eating(t_philos *philo)
 {
 	
-	pthread_mutex_lock(&philo->init->absolute_lock);
 	if (check_death(philo) != 0)
-		return (pthread_mutex_unlock(&philo->init->absolute_lock), -1);
+		return (-1);
 	if (philo->init->number_of_philo == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
 		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(&philo->init->absolute_lock);
 		ft_usleep(philo->init->time_to_die, philo);
 		return (1);
 	}
@@ -89,7 +87,6 @@ int	philo_eating(t_philos *philo)
 	pthread_mutex_lock(&philo->init->death_lock);
 	philo->time_of_last_meal = get_current_time_ms() - philo->init->start_time;
 	pthread_mutex_unlock(&philo->init->death_lock);
-	pthread_mutex_unlock(&philo->init->absolute_lock);
 	ft_usleep(philo->init->time_to_eat, philo); //THE PROBLEM IS HERE
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
