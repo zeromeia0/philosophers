@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:50:25 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 22:08:23 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	is_number(char *str)
 	return (0);
 }
 
-
 t_time	get_current_time_ms(void)
 {
 	struct timeval	tv;
@@ -68,11 +67,11 @@ t_time	get_current_time_ms(void)
 	gettimeofday(&tv, NULL);
 	return ((t_time)(tv.tv_sec * 1000ULL + tv.tv_usec / 1000ULL));
 }
-/* 
+/*
 milliseconds
 1000ULL -> converts to miliss
 tv.tv_usec / 1000ULL -> convert microseconds to miliseconds
-time_t tv_sec;   // seconds from 01 jan 1970 
+time_t tv_sec;   // seconds from 01 jan 1970
 suseconds_t tv_usec; // microseconds (millionths of a second)
 */
 
@@ -88,15 +87,17 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-void ft_usleep(t_time milliseconds, t_philos *philo)
+void	ft_usleep(t_time milliseconds, t_philos *philo)
 {
-    t_time start = get_current_time_ms();
-    while (get_current_time_ms() - start < milliseconds)
-    {
-        if (should_stop(philo))
-            break;
-        usleep(500);
-    }
+	t_time	start;
+
+	start = get_current_time_ms();
+	while (get_current_time_ms() - start < milliseconds)
+	{
+		if (should_stop(philo))
+			break ;
+		usleep(500);
+	}
 }
 
 // 5 800 200 200 3

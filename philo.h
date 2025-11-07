@@ -6,36 +6,34 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:56:16 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 22:09:53 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <dirent.h>
+# include <limits.h>
 # include <pthread.h>
-# include <sys/time.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/stat.h>
-# include <dirent.h>
+# include <sys/time.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <time.h>
-# include <limits.h>
+# include <unistd.h>
+# define INVALID "Invalid arguments\n"
+# define CLR_RESET "\033[0m"
+# define CLR_RED "\033[31m"
+# define CLR_GREEN "\033[32m"
+# define CLR_YELLOW "\033[33m"
+# define CLR_BLUE "\033[34m"
+# define CLR_MAGENTA "\033[35m"
 
-
-
-#define CLR_RESET   "\033[0m"
-#define CLR_RED     "\033[31m"
-#define CLR_GREEN   "\033[32m"
-#define CLR_YELLOW  "\033[33m"
-#define CLR_BLUE    "\033[34m"
-#define CLR_MAGENTA "\033[35m"
-#define U_INT unsigned int
 typedef unsigned long long	t_time;
 
 typedef struct s_init_vars
@@ -70,9 +68,17 @@ typedef struct s_philo
 	pthread_mutex_t			times_eaten_pls_work;
 }							t_philos;
 
+typedef struct s_general
+{
+	t_init					*init;
+	t_philos				*philo;
+	pthread_t				*threads;
+	int						number_of_philo;
+}							t_general;
+
 long						ft_atol(const char *str);
-size_t							ft_strlen(char *str);
-int delivery_calculator(t_philos *philo);
+size_t						ft_strlen(char *str);
+int							delivery_calculator(t_philos *philo);
 void						ft_putstr_fd(int fd, char *str);
 int							is_number(char *str);
 void						init_values(t_philos *philo, char **argv);
@@ -81,25 +87,28 @@ int							create_threads(int number_of_philos,
 								t_philos *philo);
 int							join_threads(int number_of_philos,
 								pthread_t th[number_of_philos]);
-								void monitor_helper(t_philos *philo);
+void						monitor_helper(t_philos *philo);
 void						*socrates(void *arg);
-void	additional_operations(t_philos *philo);
-void	print_message(t_philos *philo, char *str, int is_dead);
-void	release_forks(t_philos *philo);
-int	delivery_calculator(t_philos *philo);
+void						additional_operations(t_philos *philo);
+void						print_message(t_philos *philo, char *str,
+								int is_dead);
+void						release_forks(t_philos *philo);
+int							delivery_calculator(t_philos *philo);
 t_philos					*philos(void);
 void						print_philo_values(t_philos *philo, char **argv);
-int	philo_thinking(t_philos *philo);
-int	philo_sleeping(t_philos *philo);
-int	philo_eating(t_philos *philo);
-int check_death(t_philos *philo);
-void *routine_loop(void *arg);
-void	lonely_philo(t_philos *philo);
-t_time	get_current_time_ms(void);
-void ft_usleep(t_time milliseconds, t_philos *philo);
-void crazy_print(t_philos *philo);
-int should_stop(t_philos *philo);
-void print_death(t_philos *philo, char *str);
-
+int							philo_thinking(t_philos *philo);
+int							philo_sleeping(t_philos *philo);
+int							philo_eating(t_philos *philo);
+int							check_death(t_philos *philo);
+void						*routine_loop(void *arg);
+void						lonely_philo(t_philos *philo);
+t_time						get_current_time_ms(void);
+void						ft_usleep(t_time milliseconds, t_philos *philo);
+void						crazy_print(t_philos *philo);
+int							should_stop(t_philos *philo);
+void						super_duper_hiper_free(t_philos *philo,
+								t_init *init, pthread_t *thread);
+void						print_death(t_philos *philo, char *str);
+int							last_argument_validation(char *str);
 
 #endif

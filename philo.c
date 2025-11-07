@@ -6,26 +6,11 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:56:04 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 22:07:49 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#define INVALID "Invalid arguments\n"
-
-int	last_argument_validation(char *str)
-{
-	int	i;
-
-	if (is_number(str) != 0)
-		return (write(2, INVALID, 19), -1);
-	if (str[0] == '-' && str[0] == '\0' || str[0] == '+' && str[0] == '\0')
-		return (write(2, INVALID, 19), -1);
-	i = ft_atol(str);
-	if (i <= 0)
-		return (-1);
-	return (1);
-}
 
 int	args_checker(int argc, char *argv[])
 {
@@ -99,45 +84,48 @@ void	handle_early_death_case_all(t_philos *philo)
 	pthread_mutex_unlock(&philo->init->absolute_lock);
 }
 
-int	main(int argc, char *argv[])
+int	_initialize_stuff(t_general *gen, int argc, char *argv[])
 {
-	int			number_of_philo;
-	pthread_t	*threads;
-	t_init		*init;
-	t_philos	*philo;
+	int	i;
 
 	if (args_checker(argc, argv) != 0)
 		return (1);
-	number_of_philo = ft_atol(argv[1]);
-	if (!(init = malloc(sizeof(t_init))))
-		return (printf("Couldn't load init\n"), -1);
-	if (!(philo = calloc(sizeof(t_philos) * number_of_philo, 1)))
-		return (printf("Couldn't load main struct\n"), -1);
-	if (!(threads = malloc(sizeof(pthread_t) * number_of_philo)))
-		return (printf("Couldn't allocate threads\n"), -1);
-	for (int i = 0; i < number_of_philo; i++)
+	gen->number_of_philo = ft_atol(argv[1]);
+	gen->init = malloc(sizeof(t_init));
+	if (!gen->init)
+		return (printf("Couldn't load init\n"), 1);
+	gen->philo = calloc(gen->number_of_philo, sizeof(t_philos));
+	if (!gen->philo)
+		return (printf("Couldn't load main struct\n"), 1);
+	gen->threads = malloc(sizeof(pthread_t) * gen->number_of_philo);
+	if (!gen->threads)
+		return (printf("Couldn't allocate threads\n"), 1);
+	i = 0;
+	while (i < gen->number_of_philo)
 	{
-		philo[i].id = i;
-		philo[i].init = init;
+		gen->philo[i].id = i;
+		gen->philo[i].init = gen->init;
+		i++;
 	}
-	init_values(philo, argv);
-	if (philo->init->time_to_die < philo->init->time_to_eat
-		|| philo->init->time_to_die < philo->init->time_to_sleep)
-		return (handle_early_death_case_all(philo), 1);
-	if (create_threads(number_of_philo, threads, philo) != 0)
+	init_values(gen->philo, argv);
+	return (0);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_general	gen;
+
+	if (_initialize_stuff(&gen, argc, argv))
+		return (1);
+	if (gen.philo->init->time_to_die < gen.philo->init->time_to_eat
+		|| gen.philo->init->time_to_die < gen.philo->init->time_to_sleep)
+		return (handle_early_death_case_all(gen.philo), 1);
+	if (create_threads(gen.number_of_philo, gen.threads, gen.philo) != 0)
 		return (perror("Not working right now\n"), 1);
-	monitor(philo);
+	monitor(gen.philo);
 	printf("====exiting====\n");
-	if (join_threads(number_of_philo, threads) != 0)
+	if (join_threads(gen.number_of_philo, gen.threads) != 0)
 		return (perror("Failure\n"), 1);
-	pthread_mutex_destroy(&philo->init->absolute_lock);
-	pthread_mutex_destroy(&philo->lock_to_message);
-	free(init->general_forks);
-	if (init)
-		free(init);
-	if (philo)
-		free(philo);
-	if (threads)
-		free(threads);
+	super_duper_hiper_free(gen.philo, gen.init, gen.threads);
 	return (0);
 }

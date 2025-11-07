@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 21:52:09 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/07 21:56:09 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 22:08:47 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	lonely_philo(t_philos *philo)
 	pthread_mutex_unlock(philo->left_fork);
 	ft_usleep(philo->init->time_to_die, philo);
 }
+
 void	additional_operations(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->init->food_lock);
@@ -58,7 +59,7 @@ int	delivery_calculator(t_philos *philo)
 	return (0);
 }
 
-void monitor_helper(t_philos *philo)
+void	monitor_helper(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->init->absolute_lock);
 	pthread_mutex_lock(&philo->init->stop_lock);

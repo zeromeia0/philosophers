@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:12:28 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:45:12 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 22:09:33 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_death(t_philos *philo)
 {
-	U_INT	now;
+	unsigned int	now;
 
 	pthread_mutex_lock(&philo->init->death_lock);
 	now = get_current_time_ms() - philo->init->start_time;
@@ -37,9 +37,9 @@ void	print_message(t_philos *philo, char *str, int is_dead)
 	pthread_mutex_lock(&philo->init->print_lock);
 	now = get_current_time_ms() - start;
 	if (should_stop(philo) == 0 && is_dead == 0)
-		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+		printf("%u %d %s", (unsigned int)now, philo->id + 1, str);
 	if (is_dead == 1)
-		printf("%u %d %s", (U_INT)now, philo->id + 1, str);
+		printf("%u %d %s", (unsigned int)now, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->init->print_lock);
 }
 
@@ -71,4 +71,17 @@ int	join_threads(int number_of_philos, pthread_t th[number_of_philos])
 		i++;
 	}
 	return (0);
+}
+
+void	super_duper_hiper_free(t_philos *philo, t_init *init, pthread_t *thread)
+{
+	pthread_mutex_destroy(&philo->init->absolute_lock);
+	pthread_mutex_destroy(&philo->lock_to_message);
+	free(init->general_forks);
+	if (init)
+		free(init);
+	if (philo)
+		free(philo);
+	if (thread)
+		free(thread);
 }
