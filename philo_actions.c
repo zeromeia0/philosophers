@@ -6,24 +6,28 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/07 21:29:16 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:53:27 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int should_stop(t_philos *philo)
+int	should_stop(t_philos *philo)
 {
-    pthread_mutex_lock(&philo->init->stop_lock);
-    int stop = philo->init->stop_simulation;
-    pthread_mutex_unlock(&philo->init->stop_lock);
-    return stop;
+	int	stop;
+
+	pthread_mutex_lock(&philo->init->stop_lock);
+	stop = philo->init->stop_simulation;
+	pthread_mutex_unlock(&philo->init->stop_lock);
+	return (stop);
 }
 
-void *routine_loop(void *arg)
+void	*routine_loop(void *arg)
 {
-	t_philos *philo;
-	bool should_do = true;
+	t_philos	*philo;
+	bool		should_do;
+
+	should_do = true;
 	philo = (t_philos *)arg;
 	while (!should_stop(philo))
 	{
@@ -63,55 +67,28 @@ int	philo_thinking(t_philos *philo)
 	return (0);
 }
 
-
-void	release_forks(t_philos *philo)
-{
-	if (philo->id % 2 != 0)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
-}
-
 int	philo_eating(t_philos *philo)
 {
 	if (check_death(philo) != 0)
 		return (-1);
 	if (philo->init->number_of_philo == 1)
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print_message(philo, CLR_GREEN"has taken a fork\n" CLR_RESET, 0);
-		pthread_mutex_unlock(philo->left_fork);
-		ft_usleep(philo->init->time_to_die, philo);
-		return (1);
-	}
+		return (lonely_philo(philo), 1);
 	if (philo->id % 2 == 0)
 	{
-	    pthread_mutex_lock(philo->right_fork);
-	    print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
-	    pthread_mutex_lock(philo->left_fork);
-	    print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
+		pthread_mutex_lock(philo->right_fork);
+		print_message(philo, CLR_GREEN "has taken a right fork\n" CLR_RESET, 0);
+		pthread_mutex_lock(philo->left_fork);
+		print_message(philo, CLR_GREEN "has taken left a fork\n" CLR_RESET, 0);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
-		print_message(philo, CLR_GREEN"has taken left a fork\n" CLR_RESET, 0);
+		print_message(philo, CLR_GREEN "has taken left a fork\n" CLR_RESET, 0);
 		pthread_mutex_lock(philo->right_fork);
-		print_message(philo, CLR_GREEN"has taken a right fork\n" CLR_RESET, 0);
+		print_message(philo, CLR_GREEN "has taken a right fork\n" CLR_RESET, 0);
 	}
 	print_message(philo, CLR_YELLOW "is eating\n" CLR_RESET, 0);
-	pthread_mutex_lock(&philo->init->food_lock);
-	if (philo->init->minimum_eat_times * philo->init->number_of_philo > philo->init->food_counter)
-		philo->init->food_counter++;
-	pthread_mutex_unlock(&philo->init->food_lock);
-	pthread_mutex_lock(&philo->init->death_lock);
-	philo->time_of_last_meal = get_current_time_ms() - philo->init->start_time;
-	pthread_mutex_unlock(&philo->init->death_lock);
+	additional_operations(philo);
 	ft_usleep(philo->init->time_to_eat, philo);
 	release_forks(philo);
 	return (0);

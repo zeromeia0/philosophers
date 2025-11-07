@@ -6,7 +6,7 @@
 #    By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/11/07 21:29:36 by vivaz-ca         ###   ########.fr        #
+#    Updated: 2025/11/07 21:52:28 by vivaz-ca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC = $(SRCDIR)/philo.c \
       $(SRCDIR)/basic_thread_ops.c \
 	  $(SRCDIR)/philo_actions.c \
 	  $(SRCDIR)/init.c \
+	  $(SRCDIR)/philo_helper.c \
       $(SRCDIR)/utils.c
 
 OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

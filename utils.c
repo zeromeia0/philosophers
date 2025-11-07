@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:36:30 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:50:25 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,41 +99,47 @@ void ft_usleep(t_time milliseconds, t_philos *philo)
     }
 }
 
-// 5 600 200 200
-// ====exiting====
-// ==================
-// WARNING: ThreadSanitizer: data race (pid=131091)
-//   Write of size 8 at 0x7b5c00000208 by thread T4 (mutexes: write M9, write M10, write M2):
-//     #0 philo_eating /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:113:27 (philo+0x4bb284)
-//     #1 routine_loop /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:35:7 (philo+0x4bad3c)
+// 5 800 200 200 3
+// WARNING: ThreadSanitizer: data race (pid=133492)
+//   Write of size 4 at 0x7b400000000c by main thread:
+//     #0 delivery_calculator /home/vivaz-ca/42_Cursus/philosophers/philo.c:61:40 (philo+0x4b9f16)
+//     #1 monitor /home/vivaz-ca/42_Cursus/philosophers/philo.c:87:7 (philo+0x4ba100)
+//     #2 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:145:2 (philo+0x4ba6af)
 
-//   Previous read of size 8 at 0x7b5c00000208 by main thread:
-//     #0 monitor /home/vivaz-ca/42_Cursus/philosophers/philo.c:89:56 (philo+0x4ba1b3)
-//     #1 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:149:2 (philo+0x4ba81f)
+//   Previous read of size 4 at 0x7b400000000c by thread T4 (mutexes: write M9, write M10, write M0):
+//     #0 should_stop /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:20:22 (philo+0x4bac97)
+//     #1 ft_usleep /home/vivaz-ca/42_Cursus/philosophers/utils.c:96:13 (philo+0x4bc32d)
+//     #2 philo_eating /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:125:2 (philo+0x4bafbd)
+//     #3 routine_loop /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:39:7 (philo+0x4bad9c)
 
-//   Location is heap block of size 840 at 0x7b5c00000000 allocated by main thread:
-//     #0 calloc <null> (philo+0x448677)
-//     #1 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:135:16 (philo+0x4ba5db)
+//   As if synchronized via sleep:
+//     #0 usleep <null> (philo+0x4473b6)
+//     #1 monitor /home/vivaz-ca/42_Cursus/philosophers/philo.c:96:3 (philo+0x4ba1e3)
+//     #2 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:145:2 (philo+0x4ba6af)
+
+//   Location is heap block of size 256 at 0x7b4000000000 allocated by main thread:
+//     #0 malloc <null> (philo+0x44841b)
+//     #1 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:128:15 (philo+0x4ba42b)
 
 //   Mutex M9 (0x7b3400000078) created at:
 //     #0 pthread_mutex_init <null> (philo+0x44b47d)
-//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bb882)
-//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bbb69)
+//     #2 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:139:2 (philo+0x4ba559)
 
 //   Mutex M10 (0x7b34000000a0) created at:
 //     #0 pthread_mutex_init <null> (philo+0x44b47d)
-//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bb882)
-//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bbb69)
+//     #2 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:139:2 (philo+0x4ba559)
 
-//   Mutex M2 (0x7b4000000058) created at:
+//   Mutex M0 (0x7b4000000088) created at:
 //     #0 pthread_mutex_init <null> (philo+0x44b47d)
-//     #1 init_heleper /home/vivaz-ca/42_Cursus/philosophers/init.c:32:2 (philo+0x4bb76d)
-//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+//     #1 init_heleper /home/vivaz-ca/42_Cursus/philosophers/init.c:30:2 (philo+0x4bb8d2)
+//     #2 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:43:2 (philo+0x4bba08)
+//     #3 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:139:2 (philo+0x4ba559)
 
-//   Thread T4 (tid=131096, running) created by main thread at:
+//   Thread T4 (tid=133497, running) created by main thread at:
 //     #0 pthread_create <null> (philo+0x449c4b)
-//     #1 create_threads /home/vivaz-ca/42_Cursus/philosophers/basic_thread_ops.c:52:7 (philo+0x4bab00)
-//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+//     #1 create_threads /home/vivaz-ca/42_Cursus/philosophers/basic_thread_ops.c:55:7 (philo+0x4bab08)
+//     #2 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:143:6 (philo+0x4ba682)
 
-// SUMMARY: ThreadSanitizer: data race /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:113:27 in philo_eating
-// ==================
+// SUMMARY: ThreadSanitizer: data race /home/vivaz-ca/42_Cursus/philosophers/philo.c:61:40 in delivery_calculator

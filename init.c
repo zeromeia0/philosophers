@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 23:07:19 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 14:17:53 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:38:32 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_values(t_philos *philo, char **argv)
 			% philo->init->number_of_philo];
 	}
 }
-
+/*
 void	print_philo_values(t_philos *philo, char **argv)
 {
 	if (philo && philo->init)
@@ -72,7 +72,7 @@ void	print_philo_values(t_philos *philo, char **argv)
 			(int)philo->init->minimum_eat_times);
 	}
 }
-/* 
+ 
 void	crazy_print(t_philos *philo)
 {
 	t_time	current_time_ms;

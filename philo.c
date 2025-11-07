@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 21:37:18 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:56:04 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	last_argument_validation(char *str)
 	if (i <= 0)
 		return (-1);
 	return (1);
-
 }
+
 int	args_checker(int argc, char *argv[])
 {
 	int		i;
@@ -52,57 +52,40 @@ int	args_checker(int argc, char *argv[])
 	return (0);
 }
 
-int	delivery_calculator(t_philos *philo)
+void	monitor(t_philos *philo)
 {
-	pthread_mutex_lock(&philo->init->food_lock);
-	if (philo->init->food_counter == philo->init->minimum_eat_times
-		* philo->init->number_of_philo)
+	int	i;
+
+	while (1)
 	{
-		pthread_mutex_unlock(&philo->init->food_lock);
-		return (philo->init->stop_simulation = 1, -1);
+		i = -1;
+		while (++i < philo->init->number_of_philo)
+		{
+			if (check_death(&philo[i]) == -1)
+			{
+				pthread_mutex_lock(&philo->init->absolute_lock);
+				print_message(&philo[i], CLR_RED "died\n" CLR_RESET, 1);
+				pthread_mutex_lock(&philo->init->stop_lock);
+				philo->init->stop_simulation = 1;
+				pthread_mutex_unlock(&philo->init->stop_lock);
+				pthread_mutex_unlock(&philo->init->absolute_lock);
+				return ;
+			}
+		}
+		if (delivery_calculator(philo) != 0)
+		{
+			monitor_helper(philo);
+			break ;
+		}
+		usleep(1000);
 	}
-	pthread_mutex_unlock(&philo->init->food_lock);
-	return (0);
 }
 
-
-
-void monitor(t_philos *philo)
+void	handle_early_death_case_all(t_philos *philo)
 {
-    int i;
-    
-    while (1)
-    {
-        i = -1;
-        while (++i < philo->init->number_of_philo)
-        {
-            if (check_death(&philo[i]) == -1)
-            {
-                pthread_mutex_lock(&philo->init->absolute_lock);
-                print_message(&philo[i], CLR_RED "died\n" CLR_RESET, 1);
-                pthread_mutex_lock(&philo->init->stop_lock);
-                philo->init->stop_simulation = 1;
-                pthread_mutex_unlock(&philo->init->stop_lock);
-                pthread_mutex_unlock(&philo->init->absolute_lock);
-                return;
-            }
-        }
-        if (delivery_calculator(philo) != 0)
-        {
-            pthread_mutex_lock(&philo->init->absolute_lock);
-            pthread_mutex_lock(&philo->init->stop_lock);
-            philo->init->stop_simulation = 1;
-            pthread_mutex_unlock(&philo->init->stop_lock);
-            pthread_mutex_unlock(&philo->init->absolute_lock);
-            break;
-        }
-        usleep(1000);
-    }
-}
+	int	i;
 
-void handle_early_death_case_all(t_philos *philo)
-{
-	int i = -1;
+	i = -1;
 	print_message(&philo[0], CLR_GREEN "has taken a fork\n" CLR_RESET, 0);
 	if (philo->init->number_of_philo > 1)
 		print_message(&philo[0], CLR_GREEN "has taken a fork\n" CLR_RESET, 0);
@@ -138,7 +121,8 @@ int	main(int argc, char *argv[])
 		philo[i].init = init;
 	}
 	init_values(philo, argv);
-	if (philo->init->time_to_die < philo->init->time_to_eat || philo->init->time_to_die < philo->init->time_to_sleep)
+	if (philo->init->time_to_die < philo->init->time_to_eat
+		|| philo->init->time_to_die < philo->init->time_to_sleep)
 		return (handle_early_death_case_all(philo), 1);
 	if (create_threads(number_of_philo, threads, philo) != 0)
 		return (perror("Not working right now\n"), 1);
