@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 19:06:18 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 14:18:04 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:14:53 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_philo
 	pthread_mutex_t			*right_fork;
 	pthread_mutex_t			lock_to_message;
 	t_init					*init;
+	pthread_mutex_t			times_eaten_pls_work;
 }							t_philos;
 
 long						ft_atol(const char *str);

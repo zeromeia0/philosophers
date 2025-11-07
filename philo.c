@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:22 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/07 13:56:09 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:37:18 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,15 @@ int	delivery_calculator(t_philos *philo)
 	pthread_mutex_lock(&philo->init->food_lock);
 	if (philo->init->food_counter == philo->init->minimum_eat_times
 		* philo->init->number_of_philo)
-		return (pthread_mutex_unlock(&philo->init->food_lock), -1);
+	{
+		pthread_mutex_unlock(&philo->init->food_lock);
+		return (philo->init->stop_simulation = 1, -1);
+	}
 	pthread_mutex_unlock(&philo->init->food_lock);
 	return (0);
 }
+
+
 
 void monitor(t_philos *philo)
 {
@@ -79,10 +84,6 @@ void monitor(t_philos *philo)
                 philo->init->stop_simulation = 1;
                 pthread_mutex_unlock(&philo->init->stop_lock);
                 pthread_mutex_unlock(&philo->init->absolute_lock);
-				printf("Dead philo = %u\n", philo[i].id + 1);
-				printf("Current time = %u\n", (U_INT)(get_current_time_ms() - philo->init->start_time));
-				printf("Time of last meal = %u\n", (U_INT)philo[i].time_of_last_meal);
-				printf("Result = %u\n", (U_INT)((get_current_time_ms() - philo->init->start_time) - philo[i].time_of_last_meal));
                 return;
             }
         }
@@ -154,7 +155,5 @@ int	main(int argc, char *argv[])
 		free(philo);
 	if (threads)
 		free(threads);
-	// free(main_philo->left_fork);
-	// free(main_philo->right_fork);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/24 11:29:36 by vivaz-ca          #+#    #+#              #
-#    Updated: 2025/11/07 15:24:12 by vivaz-ca         ###   ########.fr        #
+#    Updated: 2025/11/07 21:29:36 by vivaz-ca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ OBJS = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 CC = cc
 # CFLAGS = -Wall -o0 -Wextra -Werror -g -pthread
-# CFLAGS = -g -o3 -fsanitize=thread
-CFLAGS = -g -o3 -pthread
+CFLAGS = -g -o3 -fsanitize=thread
+# CFLAGS = -g -o3 -pthread
 
 
 all: $(NAME)

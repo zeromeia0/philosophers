@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvazzs <vvazzs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:43:53 by vvazzs            #+#    #+#             */
-/*   Updated: 2025/11/06 15:22:16 by vvazzs           ###   ########.fr       */
+/*   Updated: 2025/11/07 21:36:30 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,41 @@ void ft_usleep(t_time milliseconds, t_philos *philo)
     }
 }
 
+// 5 600 200 200
+// ====exiting====
+// ==================
+// WARNING: ThreadSanitizer: data race (pid=131091)
+//   Write of size 8 at 0x7b5c00000208 by thread T4 (mutexes: write M9, write M10, write M2):
+//     #0 philo_eating /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:113:27 (philo+0x4bb284)
+//     #1 routine_loop /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:35:7 (philo+0x4bad3c)
+
+//   Previous read of size 8 at 0x7b5c00000208 by main thread:
+//     #0 monitor /home/vivaz-ca/42_Cursus/philosophers/philo.c:89:56 (philo+0x4ba1b3)
+//     #1 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:149:2 (philo+0x4ba81f)
+
+//   Location is heap block of size 840 at 0x7b5c00000000 allocated by main thread:
+//     #0 calloc <null> (philo+0x448677)
+//     #1 main /home/vivaz-ca/42_Cursus/philosophers/philo.c:135:16 (philo+0x4ba5db)
+
+//   Mutex M9 (0x7b3400000078) created at:
+//     #0 pthread_mutex_init <null> (philo+0x44b47d)
+//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bb882)
+//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+
+//   Mutex M10 (0x7b34000000a0) created at:
+//     #0 pthread_mutex_init <null> (philo+0x44b47d)
+//     #1 init_values /home/vivaz-ca/42_Cursus/philosophers/init.c:51:3 (philo+0x4bb882)
+//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+
+//   Mutex M2 (0x7b4000000058) created at:
+//     #0 pthread_mutex_init <null> (philo+0x44b47d)
+//     #1 init_heleper /home/vivaz-ca/42_Cursus/philosophers/init.c:32:2 (philo+0x4bb76d)
+//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+
+//   Thread T4 (tid=131096, running) created by main thread at:
+//     #0 pthread_create <null> (philo+0x449c4b)
+//     #1 create_threads /home/vivaz-ca/42_Cursus/philosophers/basic_thread_ops.c:52:7 (philo+0x4bab00)
+//     #2 __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16 (libc.so.6+0x29d8f)
+
+// SUMMARY: ThreadSanitizer: data race /home/vivaz-ca/42_Cursus/philosophers/philo_actions.c:113:27 in philo_eating
+// ==================

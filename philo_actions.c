@@ -6,7 +6,7 @@
 /*   By: vivaz-ca <vivaz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:58:38 by vivaz-ca          #+#    #+#             */
-/*   Updated: 2025/11/07 15:21:19 by vivaz-ca         ###   ########.fr       */
+/*   Updated: 2025/11/07 21:29:16 by vivaz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,13 @@ int	philo_eating(t_philos *philo)
 	}
 	print_message(philo, CLR_YELLOW "is eating\n" CLR_RESET, 0);
 	pthread_mutex_lock(&philo->init->food_lock);
-	philo->init->food_counter++;
+	if (philo->init->minimum_eat_times * philo->init->number_of_philo > philo->init->food_counter)
+		philo->init->food_counter++;
 	pthread_mutex_unlock(&philo->init->food_lock);
 	pthread_mutex_lock(&philo->init->death_lock);
 	philo->time_of_last_meal = get_current_time_ms() - philo->init->start_time;
 	pthread_mutex_unlock(&philo->init->death_lock);
-	ft_usleep(philo->init->time_to_eat, philo); //THE PROBLEM IS HERE
+	ft_usleep(philo->init->time_to_eat, philo);
 	release_forks(philo);
 	return (0);
 }
